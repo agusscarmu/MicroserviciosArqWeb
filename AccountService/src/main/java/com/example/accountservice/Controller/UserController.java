@@ -16,6 +16,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+
+
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public List<UserDTO> users(){
         return userService.findAllUsers();

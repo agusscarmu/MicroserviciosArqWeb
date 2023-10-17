@@ -13,11 +13,16 @@ import java.util.List;
 @AllArgsConstructor
 public class Account {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @OneToMany(mappedBy = "associatedAccount")
     private List<Travel> scooters;
 
-    private long balance;
+    private float balance;
+
+
+    public Account(long id, float balance) {
+        this.id = id;
+        this.balance = balance;
+    }
 }

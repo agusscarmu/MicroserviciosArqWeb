@@ -11,4 +11,7 @@ public interface TravelRepository extends JpaRepository<Travel, Long>{
 
     @Query("SELECT new com.example.scooterservice.DTO.Travel.TravelDTO(t.associatedAccount.id, t.associatedScooter.id, t.createdAt, t.finishedAt, t.paused, t.pauseStartedAt, t.pauseFinishedAt) FROM Travel t")
     List<TravelDTO> findAllTravels();
+
+    @Query("SELECT 1 FROM Travel t JOIN Scooter s ON t.scooterId = s.id JOIN Station st ON st.location = s.location WHERE s.id = ?1 AND st.location = s.location")
+    Integer scooterInStation(long scooterId);
 }

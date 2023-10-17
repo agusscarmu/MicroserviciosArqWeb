@@ -17,7 +17,7 @@ public class MercadoPago {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private float balance;
+    private double balance;
 
     @OneToMany(mappedBy = "mercadoPago")
     private List<Account> accounts;

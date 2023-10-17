@@ -10,19 +10,26 @@ import java.util.List;
 
 @Entity
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class Account {
     @Id
     @Column(name = "account_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(name = "mercadoPago_id")
+    private long mercadoPagoId;
+
     @ManyToOne
-    @JoinColumn(name = "mercadoPago_id")
+    @JoinColumn(name = "mercadoPago_id", insertable = false, updatable = false)
     private MercadoPago mercadoPago;
 
-    @ManyToMany(mappedBy = "accounts")
+    @ManyToMany
+    @JoinTable(
+            name = "user_account",
+            joinColumns = @JoinColumn(name = "account_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> users;
 
     @Column(name = "created_at")

@@ -17,7 +17,7 @@ public class MercadoPagoController {
     private MercadoPagoService mercadoPagoService;
 
     @PostMapping("/add")
-    public ResponseEntity<MercadoPago> mercadoPago(@RequestBody MercadoPago mercadoPago){
-        return ResponseEntity.ok(mercadoPagoService.addMp(mercadoPago));
+    public ResponseEntity<String> mercadoPago(@RequestBody MercadoPago mercadoPago){
+        return ResponseEntity.ok(mercadoPagoService.addMp(mercadoPago).toString());
     }
 }

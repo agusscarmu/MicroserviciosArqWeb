@@ -22,4 +22,11 @@ public class Scooter {
 
     @OneToMany(mappedBy = "associatedScooter")
     private List<Travel> travels;
+
+    @ManyToOne
+    @JoinColumn(name = "station_id", insertable = false, updatable = false)
+    private Station station;
+
+    @Column(name = "station_id")
+    private long stationId;
 }
