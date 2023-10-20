@@ -2,12 +2,15 @@ package com.example.scooterservice.Service;
 
 import com.example.scooterservice.DTO.Travel.TravelDTO;
 import com.example.scooterservice.Model.Travel;
+import com.example.scooterservice.Observer.TravelObserver;
 import com.example.scooterservice.Repository.TravelRepository;
 import com.example.scooterservice.Service.Interface.TravelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -16,8 +19,28 @@ public class TravelServiceImpl implements TravelService {
     @Autowired
     private TravelRepository travelRepository;
 
+    private List<TravelObserver> observers = new LinkedList<>();
     private final WebClient webClientMaintenance = WebClient.builder().baseUrl("http://localhost:8083").build();
     private final WebClient webClientAccount = WebClient.builder().baseUrl("http://localhost:8081").build();
+
+    @Override
+    public void registerObserver(TravelObserver observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public String startTravel(long idScooter, long idAccount) {
+        Travel travel = new Travel(idAccount, idScooter);
+        travelRepository.save(travel);
+
+        for(TravelObserver observer : observers){
+            if(!observer.travelStarted(idScooter)){
+                return "Scooter not available";
+            }
+        }
+
+        return "Travel started";
+    }
 
     @Override
     public String pauseTravel(long id) {
@@ -40,35 +63,32 @@ public class TravelServiceImpl implements TravelService {
         return travelRepository.findAllTravels();
     }
 
-    @Override
-    public String startTravel(long idScooter, long idAccount) {
-        Travel travel = new Travel(idAccount, idScooter);
-        travelRepository.save(travel);
-        return "Travel started";
-    }
 
     @Override
     public String finishTravel(long id) {
         Travel travel = travelRepository.findById(id).get();
-        if(travelRepository.scooterInStation(travel.getScooterId())!=1){
-            return "Scooter not in station";
-        }else{
-            travel.finishTravel();
-            travelRepository.save(travel);
-            webClientMaintenance.put()
-                    .uri("/scooterReport/updateReport/{id}?usageTime={usageTime}&pauseTime={pauseTime}",
-                            travel.getScooterId(), travel.getUsageTime(), travel.getPauseDuration())
-                    .retrieve()
-                    .bodyToMono(String.class)
-                    .block();
-            webClientAccount.put()
-                    .uri("/account/{id}/discount?amount={amount}",
-                            travel.getAccountId(), travel.getTotalPrice())
-                    .retrieve()
-                    .bodyToMono(String.class)
-                    .block();
-            return "Travel finished";
+        for(TravelObserver observer : observers){
+            if(!observer.travelFinished(travel.getScooterId())){
+                return "Scooter is not at a station";
+            };
         }
+
+        travel.finishTravel();
+        travelRepository.save(travel);
+        webClientMaintenance.put()
+                .uri("/scooterReport/updateReport/{id}?usageTime={usageTime}&pauseTime={pauseTime}&km={km}",
+                        travel.getScooterId(), travel.getUsageTime(), travel.getPauseDuration(), travel.getKmTraveled())
+                .retrieve()
+                .bodyToMono(String.class)
+                .block();
+        webClientAccount.put()
+                .uri("/account/{id}/discount?amount={amount}",
+                        travel.getAccountId(), travel.getTotalPrice())
+                .retrieve()
+                .bodyToMono(String.class)
+                .block();
+        return "Travel finished";
+
     }
 
     @Override
@@ -78,8 +98,24 @@ public class TravelServiceImpl implements TravelService {
     }
 
     @Override
+    public String updatePrice(float price, Date date) {
+        Travel.setPrice(price, date);
+        return "Price updated";
+    }
+
+    @Override
     public String startTravelWTime(Travel travel) {
         travelRepository.save(travel);
         return "Travel started";
+    }
+
+    @Override
+    public String getTotalFactured() {
+        return null;
+    }
+
+    @Override
+    public String getTotalFactured(int month1, int month2, int year) {
+        return travelRepository.getTotalFacturedBetween(month1, month2, year);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.scooterservice.Service;
 
+import com.example.scooterservice.DTO.Scooter.ScooterAvailableDTO;
 import com.example.scooterservice.DTO.Scooter.ScooterDTO;
 import com.example.scooterservice.Model.Scooter;
 import com.example.scooterservice.Model.Station;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Service
@@ -62,5 +64,49 @@ public class ScooterServiceImpl implements ScooterService {
         }else{
             return "Scooter not found";
         }
+    }
+
+    @Override
+    public Serializable getStatus() {
+        return scooterRepository.getStatus();
+    }
+
+    @Override
+    public List<ScooterAvailableDTO> getScooters(String location) {
+        return scooterRepository.getAvailableScooters(location);
+    }
+
+    @Transactional
+    @Override
+    public String updateLocation(Long scooterId, String location) {
+        if(scooterRepository.existsById(scooterId)){
+            scooterRepository.updateLocation(scooterId, location);
+            return "Scooter location updated";
+        }else{
+            return "Scooter not found";
+        }
+    }
+
+    @Transactional
+    @Override
+    public boolean travelStarted(long id) {
+        if(scooterRepository.existsById(id)){
+            if(scooterRepository.available(id)==null){
+                return false;
+            }
+            scooterRepository.travelStarted(id);
+            return true;
+        }
+        return false;
+    }
+
+    @Transactional
+    @Override
+    public boolean travelFinished(long id) {
+        if(scooterRepository.inStation(id)==null){
+            return false;
+        }
+        scooterRepository.travelFinished(id);
+        return true;
     }
 }

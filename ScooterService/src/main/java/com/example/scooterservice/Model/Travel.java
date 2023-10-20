@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.time.LocalDateTime;
 
@@ -36,19 +37,25 @@ public class Travel {
     @Temporal(TemporalType.TIMESTAMP)
     private Date finishedAt;
 
-    @Temporal(TemporalType.TIME)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date pauseStartedAt;
 
-    @Temporal(TemporalType.TIME)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date pauseFinishedAt;
 
     private double totalPrice;
 
-    private double currentPricePerMinute = pricePerMinute;
+    private double currentPricePerMinute = getUpdatedPricePerMinute();
 
-    private static double pricePerMinute = 15;
+
+    private double kmTraveled;
 
     private boolean paused;
+
+    private static Date lastPriceChange;
+    private static double lastPricePerMinute;
+    private static double pricePerMinute = 15;
+    private static final double kmPerHour = 25;
 
     public Travel(long accountId, long scooterId, Date createdAt, Date finishedAt, float pricePerMinute) {
         this.accountId = accountId;
@@ -65,13 +72,13 @@ public class Travel {
     public Travel(long accountId, long scooterId, float pricePerMinute) {
         this.accountId = accountId;
         this.scooterId = scooterId;
-        this.createdAt = new Date(System.currentTimeMillis());
+        this.createdAt = new Date();
         this.pricePerMinute = pricePerMinute;
     }
     public Travel(long accountId, long scooterId) {
         this.accountId = accountId;
         this.scooterId = scooterId;
-        this.createdAt = new Date(System.currentTimeMillis());
+        this.createdAt = new Date();
     }
 
     public void finishTravel(){
@@ -80,33 +87,51 @@ public class Travel {
         }
         this.finishedAt = new Date(System.currentTimeMillis());
         this.totalPrice = this.getUsageTime() * pricePerMinute;
+        this.kmTraveled = (this.getUsageTime()-this.getPauseDuration()) * (kmPerHour / 60);
     }
+
+    public double getUsageTime(){
+        return ((double) (this.finishedAt.getTime() - this.createdAt.getTime()) / (1000 * 60)); // in minutes
+    }
+
     public void startPause(){
-        this.pauseStartedAt = new Date(System.currentTimeMillis());
+        this.pauseStartedAt = new Date();
         this.paused = true;
     }
-
-    public int getUsageTime(){
-        return (int) ((this.finishedAt.getTime() - this.createdAt.getTime()) / (1000 * 60)); // in minutes
-    }
     public void endPause(){
-        this.pauseFinishedAt = new Date(System.currentTimeMillis());
+        this.pauseFinishedAt = new Date();
         this.paused = false;
     }
-
-    public int getPauseDuration(){
+    public double getPauseDuration(){
         if(this.pauseStartedAt == null){
             return 0;
         }
-        return (int) ((this.pauseFinishedAt.getTime() - this.pauseStartedAt.getTime()) / (1000 * 60)); // in minutes
+        return ((double) (this.pauseFinishedAt.getTime() - this.pauseStartedAt.getTime()) / (1000 * 60)); // in minutes
     }
 
     public static void setPrice(double price){
-        pricePerMinute = price;
+        lastPriceChange = new Date();
+        lastPricePerMinute = price;
+    }
+
+    public static void setPrice(double price, Date date){
+        lastPriceChange = date;
+        lastPricePerMinute = price;
+    }
+
+    private double getUpdatedPricePerMinute() {
+        Date currentDate = new Date();
+        if(lastPriceChange!=null && currentDate.after(lastPriceChange)){
+            pricePerMinute = lastPricePerMinute;
+        }
+        return pricePerMinute;
+
     }
 
     public double getCurrentPricePerMinute(){
         double r = pricePerMinute;
         return r;
     }
+
+
 }

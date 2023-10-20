@@ -6,6 +6,7 @@ import com.example.accountservice.Repository.AccountRepository;
 import com.example.accountservice.Service.Interface.AccountService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public ResponseEntity<String> addAccount(Account account) {
+        account.activateAccount();
         accountRepository.save(account);
         updateAccountScooter(account);
         return ResponseEntity.ok(account.toString());
@@ -54,5 +56,45 @@ public class AccountServiceImpl implements AccountService {
         }else{
             return "Not enough balance";
         }
+    }
+
+    @Override
+    public String deleteAccount(long account) {
+        if(!accountRepository.existsById(account)){
+            return "Account not found";
+        }
+        accountRepository.deleteById(account);
+        webClientScooter.put()
+                .uri("/account/disable?id={id}", account)
+                .retrieve()
+                .bodyToMono(String.class)
+                .block();
+        return "Account deleted";
+    }
+
+    @Override
+    public String activateOrDeactivateAccount(long id, boolean action) {
+        if(!accountRepository.existsById(id)){
+            return "Account not found";
+        }
+        Account account = accountRepository.findById(id).get();
+        if(action){
+            account.activateAccount();
+        }else{
+            account.deactivateAccount();
+        }
+        accountRepository.save(account);
+        updateAccountScooter(account);
+        return "Account updated";
+    }
+
+    @Transactional
+    @Override
+    public String disableAccount(long id, boolean action) {
+        if(!accountRepository.existsById(id)){
+            return "Account not found";
+        }
+        accountRepository.disableAccount(id, action);
+        return "Account disabled";
     }
 }

@@ -10,4 +10,6 @@ public interface UserService {
     List<UserDTO> findAllUsers();
 
     User addUser(User user);
+
+    List<Object> localizeScooter(long id);
 }

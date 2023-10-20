@@ -35,4 +35,15 @@ public class Account {
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
+
+    private boolean active;
+
+
+    public void activateAccount() {
+        this.active = true;
+    }
+
+    public void deactivateAccount() {
+        this.active = false;
+    }
 }

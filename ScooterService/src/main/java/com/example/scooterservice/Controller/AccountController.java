@@ -23,4 +23,9 @@ public class AccountController {
     public ResponseEntity<String> addAccount(@RequestParam long id, @RequestParam float balance){
         return ResponseEntity.ok(accountService.addAccount(id, balance).toString());
     }
+
+    @RequestMapping(value = "/disable", method = RequestMethod.PUT)
+    public ResponseEntity<String> disableAccount(@RequestParam("id") long account){
+        return ResponseEntity.ok(accountService.disableAccount(account).toString());
+    }
 }

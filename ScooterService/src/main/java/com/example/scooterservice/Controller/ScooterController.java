@@ -1,20 +1,32 @@
 package com.example.scooterservice.Controller;
 
+import com.example.scooterservice.DTO.Scooter.ScooterAvailableDTO;
 import com.example.scooterservice.DTO.Scooter.ScooterDTO;
 import com.example.scooterservice.Model.Scooter;
 import com.example.scooterservice.Service.Interface.ScooterService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/scooter")
 public class ScooterController {
 
+    private static final List<String> allowed = new LinkedList<>();
+    public ScooterController() {
+        allowed.add("MaintenanceService");
+        allowed.add("AdminService");
+    }
+
     @Autowired
     private ScooterService scooterService;
+
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public List<ScooterDTO> getScooters(){
@@ -37,15 +49,38 @@ public class ScooterController {
 
     @RequestMapping(value = "/maintenance", method = RequestMethod.PUT)
     public ResponseEntity<String> markScooterMaintenance(
+            @RequestHeader("Authorization") String token,
             @RequestParam("scooterId")Long scooterId,
             @RequestParam("maintenance") boolean maintenance
     ){
+        String request = token.split(" ")[1];
+        if(!allowed.contains(request)){
+            throw new RuntimeException("Not allowed");
+        }
         return ResponseEntity.ok(scooterService.markScooterMaintenance(scooterId, maintenance));
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteScooter(@RequestParam("id") Long scooterId){
         return ResponseEntity.ok(scooterService.deleteScooter(scooterId));
+    }
+
+    @RequestMapping(value = "/status", method = RequestMethod.PUT)
+    public Serializable getStatus(){
+        return scooterService.getStatus();
+    }
+
+    @RequestMapping(value = "/getBy", method = RequestMethod.GET)
+    public List<ScooterAvailableDTO> getScooters(@RequestParam("location") String location){
+        return scooterService.getScooters(location);
+    }
+
+    @RequestMapping(value = "/updateLocation", method = RequestMethod.PUT)
+    public ResponseEntity<String> updateStation(
+            @RequestParam("scooter")Long scooterId,
+            @RequestParam("location")String location
+    ){
+        return ResponseEntity.ok(scooterService.updateLocation(scooterId, location));
     }
 
 }

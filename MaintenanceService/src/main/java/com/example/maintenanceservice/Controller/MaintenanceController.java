@@ -14,8 +14,8 @@ public class MaintenanceController {
     private MaintenanceService maintanceService;
 
     @RequestMapping(value = "/underMaintenance", method = RequestMethod.POST)
-    public ResponseEntity<String> underMaintenance(@RequestBody Maintenance maintenance){
-        return ResponseEntity.ok(maintanceService.underMaintenance(maintenance).toString());
+    public ResponseEntity<String> underMaintenance(@RequestParam long ScooterId){
+        return ResponseEntity.ok(maintanceService.underMaintenance(ScooterId).toString());
     }
 
     @RequestMapping(value = "/finalizeMaintenance", method = RequestMethod.PUT)

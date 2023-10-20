@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -28,7 +30,15 @@ public class TravelController {
     }
 
     @RequestMapping(value = "/updatePrice", method = RequestMethod.PUT)
-    public ResponseEntity<String> updatePrice(@RequestParam float price){
+    public ResponseEntity<String> updatePrice(@RequestParam float price, @RequestParam(name="date",required = false)String dateParam){
+        if(dateParam != null){
+            try {
+                Date date = new SimpleDateFormat("dd/MM/yyyy").parse(dateParam);
+                return ResponseEntity.ok(travelService.updatePrice(price, date));
+            }catch (Exception e){
+                return ResponseEntity.badRequest().body("Invalid date format");
+            }
+        }
         return ResponseEntity.ok(travelService.updatePrice(price));
     }
     @RequestMapping(value = "/{id}/finish", method = RequestMethod.PUT)
@@ -41,8 +51,8 @@ public class TravelController {
         return ResponseEntity.ok(travelService.resumeTravel(id));
     }
 
-    @RequestMapping(value = "/{idScooter}/{idAccount}/start", method = RequestMethod.POST)
-    public ResponseEntity<String> startTravel(@PathVariable long idScooter, @PathVariable long idAccount){
+    @RequestMapping(value = "/start", method = RequestMethod.POST)
+    public ResponseEntity<String> startTravel(@RequestParam long idScooter, @RequestParam long idAccount){
         return ResponseEntity.ok(travelService.startTravel(idScooter, idAccount));
     }
 
@@ -50,4 +60,12 @@ public class TravelController {
     public ResponseEntity<String> addTravel(@RequestBody Travel travel){
         return ResponseEntity.ok(travelService.startTravelWTime(travel).toString());
     }
+
+    @RequestMapping(value = "/totalFactured/between", method = RequestMethod.GET)
+    public ResponseEntity<String> getTotalFactured(@RequestParam(required = false) int month1, @RequestParam(required = false) int month2, @RequestParam(required = false) int year){
+        if(month1 == 0 || month2 == 0 || year == 0)
+            return ResponseEntity.ok(travelService.getTotalFactured().toString());
+        return ResponseEntity.ok(travelService.getTotalFactured(month1,month2,year).toString());
+    }
+
 }

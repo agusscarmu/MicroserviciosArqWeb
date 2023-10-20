@@ -1,8 +1,12 @@
 package com.example.maintenanceservice.Controller;
 
+
 import com.example.maintenanceservice.Service.Interface.ScooterReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.Serializable;
+import java.util.List;
 
 @RestController
 @RequestMapping("/scooterReport")
@@ -12,8 +16,24 @@ public class ScooterReportController {
     private ScooterReportService scooterReportService;
 
     @RequestMapping(value = "/updateReport/{id}", method = RequestMethod.PUT)
-    public String updateReport(@PathVariable Long id, @RequestParam("usageTime") int usageTime, @RequestParam("pauseTime") int pauseTime) {
-        scooterReportService.saveReport(id, usageTime, pauseTime);
+    public String updateReport(@PathVariable Long id, @RequestParam("usageTime") double usageTime, @RequestParam("pauseTime") double pauseTime,
+                               @RequestParam("km") double km){
+        scooterReportService.saveReport(id, usageTime, pauseTime, km);
         return "updateReport";
     }
+
+    @RequestMapping(value = "/getReport" , method = RequestMethod.GET)
+    public List<Serializable> getReportByKm(@RequestParam String filter, @RequestParam(required = false) boolean pauseTime){
+        if(filter.equals("km") && pauseTime == true) {
+            return scooterReportService.getReportWithPauseTime();
+        }
+        return scooterReportService.getReport(filter);
+    }
+
+    @RequestMapping(value = "/byTravels" , method = RequestMethod.GET)
+    public List<Serializable> getReportByTravels(@RequestParam("moreThan") long x){
+        return scooterReportService.getReportByTravels(x);
+    }
+
+
 }

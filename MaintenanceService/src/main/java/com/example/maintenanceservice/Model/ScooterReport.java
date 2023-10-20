@@ -16,7 +16,9 @@ public class ScooterReport {
     @Id
     @Column(name = "scooter_id")
     private long id;
-    private long usageTimeWithoutPause;
-    private long usageTimeWithPause;
-
+    private double usageTimeWithoutPause;
+    private double usageTimeWithPause;
+    private double kmTraveled;
+    private long totalRides;
+    private double totalPauseTime;
 }

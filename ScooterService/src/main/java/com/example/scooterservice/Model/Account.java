@@ -20,9 +20,11 @@ public class Account {
 
     private float balance;
 
+    private boolean active;
 
     public Account(long id, float balance) {
         this.id = id;
         this.balance = balance;
+        this.active = true;
     }
 }

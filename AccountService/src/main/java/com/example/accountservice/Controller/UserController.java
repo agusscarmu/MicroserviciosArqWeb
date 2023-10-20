@@ -27,4 +27,11 @@ public class UserController {
     public ResponseEntity<User> addUser(@RequestBody User user){
         return ResponseEntity.ok(userService.addUser(user));
     }
+
+    @RequestMapping(value="/localizeScooter", method = RequestMethod.GET)
+    public List<Object> getScooters(@RequestParam("id") long id){
+        return userService.localizeScooter(id);
+    }
+
+
 }

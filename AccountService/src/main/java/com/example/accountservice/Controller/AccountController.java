@@ -23,5 +23,15 @@ public class AccountController {
         return ResponseEntity.ok(accountService.discount(id, amount).toString());
     }
 
+    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteAccount(@RequestParam("id") long account){
+        return ResponseEntity.ok(accountService.deleteAccount(account).toString());
+    }
+
+    @RequestMapping(value = "/status",method = RequestMethod.PUT)
+    public ResponseEntity<String> activateOrDeactivateAccount(@RequestParam("id") long account, @RequestParam("active") boolean action){
+        return ResponseEntity.ok(accountService.activateOrDeactivateAccount(account,action).toString());
+    }
+
 
 }
