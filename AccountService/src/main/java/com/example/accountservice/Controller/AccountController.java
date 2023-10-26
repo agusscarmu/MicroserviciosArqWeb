@@ -1,6 +1,7 @@
 package com.example.accountservice.Controller;
 
 import com.example.accountservice.Model.Account;
+import com.example.accountservice.Security.SystemSecurity;
 import com.example.accountservice.Service.Interface.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,11 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/{id}/discount", method = RequestMethod.PUT)
-    public ResponseEntity<String> discount(@PathVariable("id") long id, @RequestParam("amount") double amount){
+    public ResponseEntity<String> discount(@RequestHeader("Authorization") String token, @PathVariable("id") long id, @RequestParam("amount") double amount){
+        String request = SystemSecurity.decode(token);
+        if(!SystemSecurity.isAllowed(request)){
+            throw new RuntimeException(request+ " Not allowed");
+        }
         return ResponseEntity.ok(accountService.discount(id, amount).toString());
     }
 

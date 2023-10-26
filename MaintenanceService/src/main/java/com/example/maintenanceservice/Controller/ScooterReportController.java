@@ -1,6 +1,7 @@
 package com.example.maintenanceservice.Controller;
 
 
+import com.example.maintenanceservice.Security.SystemSecurity;
 import com.example.maintenanceservice.Service.Interface.ScooterReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +17,12 @@ public class ScooterReportController {
     private ScooterReportService scooterReportService;
 
     @RequestMapping(value = "/updateReport/{id}", method = RequestMethod.PUT)
-    public String updateReport(@PathVariable Long id, @RequestParam("usageTime") double usageTime, @RequestParam("pauseTime") double pauseTime,
+    public String updateReport(@RequestHeader("Authorization") String token, @PathVariable Long id, @RequestParam("usageTime") double usageTime, @RequestParam("pauseTime") double pauseTime,
                                @RequestParam("km") double km){
+        String request = SystemSecurity.decode(token);
+        if(!SystemSecurity.isAllowed(request)){
+            throw new RuntimeException(request+ " Not allowed");
+        }
         scooterReportService.saveReport(id, usageTime, pauseTime, km);
         return "updateReport";
     }
@@ -34,6 +39,8 @@ public class ScooterReportController {
     public List<Serializable> getReportByTravels(@RequestParam("moreThan") long x){
         return scooterReportService.getReportByTravels(x);
     }
+
+
 
 
 }

@@ -4,7 +4,10 @@ import com.example.scooterservice.DTO.Travel.TravelDTO;
 import com.example.scooterservice.Model.Travel;
 import com.example.scooterservice.Observer.TravelObserver;
 import com.example.scooterservice.Repository.TravelRepository;
+import com.example.scooterservice.Security.SystemSecurity;
 import com.example.scooterservice.Service.Interface.TravelService;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -31,13 +34,14 @@ public class TravelServiceImpl implements TravelService {
     @Override
     public String startTravel(long idScooter, long idAccount) {
         Travel travel = new Travel(idAccount, idScooter);
-        travelRepository.save(travel);
-
         for(TravelObserver observer : observers){
             if(!observer.travelStarted(idScooter)){
                 return "Scooter not available";
             }
         }
+
+        travelRepository.save(travel);
+
 
         return "Travel started";
     }
@@ -74,16 +78,22 @@ public class TravelServiceImpl implements TravelService {
         }
 
         travel.finishTravel();
+        String token = Jwts.builder()
+                .setSubject("ScooterService")
+                .signWith(SignatureAlgorithm.HS256, SystemSecurity.getKey())
+                .compact();
         travelRepository.save(travel);
         webClientMaintenance.put()
                 .uri("/scooterReport/updateReport/{id}?usageTime={usageTime}&pauseTime={pauseTime}&km={km}",
                         travel.getScooterId(), travel.getUsageTime(), travel.getPauseDuration(), travel.getKmTraveled())
+                .header("Authorization", "Bearer " + token)
                 .retrieve()
                 .bodyToMono(String.class)
                 .block();
         webClientAccount.put()
                 .uri("/account/{id}/discount?amount={amount}",
                         travel.getAccountId(), travel.getTotalPrice())
+                .header("Authorization", "Bearer " + token)
                 .retrieve()
                 .bodyToMono(String.class)
                 .block();

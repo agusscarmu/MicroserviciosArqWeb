@@ -3,7 +3,10 @@ package com.example.scooterservice.Controller;
 import com.example.scooterservice.DTO.Scooter.ScooterAvailableDTO;
 import com.example.scooterservice.DTO.Scooter.ScooterDTO;
 import com.example.scooterservice.Model.Scooter;
+import com.example.scooterservice.Security.SystemSecurity;
 import com.example.scooterservice.Service.Interface.ScooterService;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -17,12 +20,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/scooter")
 public class ScooterController {
-
-    private static final List<String> allowed = new LinkedList<>();
-    public ScooterController() {
-        allowed.add("MaintenanceService");
-        allowed.add("AdminService");
-    }
 
     @Autowired
     private ScooterService scooterService;
@@ -53,9 +50,9 @@ public class ScooterController {
             @RequestParam("scooterId")Long scooterId,
             @RequestParam("maintenance") boolean maintenance
     ){
-        String request = token.split(" ")[1];
-        if(!allowed.contains(request)){
-            throw new RuntimeException("Not allowed");
+        String request = SystemSecurity.decode(token);
+        if(!SystemSecurity.isAllowed(request)){
+            throw new RuntimeException(request+ " Not allowed");
         }
         return ResponseEntity.ok(scooterService.markScooterMaintenance(scooterId, maintenance));
     }
@@ -82,5 +79,4 @@ public class ScooterController {
     ){
         return ResponseEntity.ok(scooterService.updateLocation(scooterId, location));
     }
-
 }

@@ -3,7 +3,10 @@ package com.example.accountservice.Service;
 import com.example.accountservice.Model.Account;
 import com.example.accountservice.Model.MercadoPago;
 import com.example.accountservice.Repository.AccountRepository;
+import com.example.accountservice.Security.SystemSecurity;
 import com.example.accountservice.Service.Interface.AccountService;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
@@ -32,8 +35,13 @@ public class AccountServiceImpl implements AccountService {
 
     private void updateAccountScooter(Account account){
         MercadoPago mp = entityManager.find(MercadoPago.class, account.getMercadoPagoId());
+        String token = Jwts.builder()
+                .setSubject("AccountService")
+                .signWith(SignatureAlgorithm.HS256, SystemSecurity.getKey())
+                .compact();
         webClientScooter.post()
                 .uri("/account/add?id={id}&balance={balance}", account.getId(), mp.getBalance())
+                .header("Authorization", "Bearer " + token)
                 .retrieve()
                 .bodyToMono(String.class)
                 .block();
@@ -63,9 +71,14 @@ public class AccountServiceImpl implements AccountService {
         if(!accountRepository.existsById(account)){
             return "Account not found";
         }
+        String token = Jwts.builder()
+                .setSubject("AccountService")
+                .signWith(SignatureAlgorithm.HS256, SystemSecurity.getKey())
+                .compact();
         accountRepository.deleteById(account);
         webClientScooter.put()
                 .uri("/account/disable?id={id}", account)
+                .header("Authorization", "Bearer " + token)
                 .retrieve()
                 .bodyToMono(String.class)
                 .block();
