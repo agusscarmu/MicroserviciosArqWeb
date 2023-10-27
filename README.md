@@ -1,5 +1,6 @@
 # Sistema de Microservicios - Alquiler de Monopatines Electrónicos 
 
+![Imagen Monopatin](./resources/img/monopatin-electrico-716690.jpg)
 
 ## Descripción del Sistema
 
