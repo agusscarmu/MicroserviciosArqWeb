@@ -24,7 +24,7 @@ public class AdminController {
         return ResponseEntity.ok(adminService.addAdmin(admin).toString());
     }
 
-    @RequestMapping("/changeAccountStatus")
+    @RequestMapping(value = "/changeAccountStatus", method = RequestMethod.PUT)
     public ResponseEntity<String> changeAccountStatus(@RequestParam("id") long id, @RequestParam("status") boolean status){
         return ResponseEntity.ok(adminService.changeAccountStatus(id, status).toString());
     }
@@ -34,12 +34,12 @@ public class AdminController {
         return adminService.reportByTravels(travels);
     }
 
-    @RequestMapping(value = "/totalFactured/between", method = RequestMethod.GET)
+    @RequestMapping(value = "/totalFactured", method = RequestMethod.GET)
     public ResponseEntity<Double> getTotalFactured(@RequestParam(required = false) int month1, @RequestParam(required = false) int month2, @RequestParam(required = false) int year){
         return ResponseEntity.ok(adminService.getTotalFactured(month1,month2,year));
     }
 
-    @RequestMapping(value = "/status", method = RequestMethod.GET)
+    @RequestMapping(value = "/scooter/status", method = RequestMethod.GET)
     public Serializable getStatus(){
         return adminService.getStatus();
     }

@@ -28,11 +28,16 @@ public class ScooterReportController {
     }
 
     @RequestMapping(value = "/getReport" , method = RequestMethod.GET)
-    public List<Serializable> getReportByKm(@RequestParam String filter, @RequestParam(required = false) boolean pauseTime){
-        if(filter.equals("km") && pauseTime == true) {
-            return scooterReportService.getReportWithPauseTime();
+    public List<Serializable> getReportByKm(@RequestHeader("Authorization") String token, @RequestParam String filter, @RequestParam(required = false) boolean pauseTime){
+        String request = SystemSecurity.decode(token);
+        if(!SystemSecurity.isAllowed(request)){
+            throw new RuntimeException(request+ " Not allowed");
+        }else{
+            if(filter.equals("km") && pauseTime == true) {
+                return scooterReportService.getReportWithPauseTime();
+            }
+            return scooterReportService.getReport(filter);
         }
-        return scooterReportService.getReport(filter);
     }
 
     @RequestMapping(value = "/byTravels" , method = RequestMethod.GET)

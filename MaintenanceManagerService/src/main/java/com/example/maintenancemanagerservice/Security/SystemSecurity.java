@@ -1,15 +1,17 @@
-package com.example.maintenanceservice.Security;
+package com.example.maintenancemanagerservice.Security;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 
 import java.util.List;
 
 public class SystemSecurity {
 
-    private static final List<String> allowed = List.of("MaintenanceService", "AdminService", "AccountService", "TravelService", "ScooterService", "MaintenanceManagerService");
+    private static final List<String> allowed = List.of("MaintenanceService", "AdminService", "AccountService", "TravelService", "ScooterService");
 
-    private static String key = "Maintenance";
+    private static String key = "MaintenanceManager";
 
     private static SystemSecurity instance = null;
 
@@ -45,5 +47,13 @@ public class SystemSecurity {
         }
 
         return null;
+    }
+
+    public static String getToken(){
+        String token = Jwts.builder()
+                .setSubject("MaintenanceManagerService")
+                .signWith(SignatureAlgorithm.HS256, SystemSecurity.getKey())
+                .compact();
+        return token;
     }
 }

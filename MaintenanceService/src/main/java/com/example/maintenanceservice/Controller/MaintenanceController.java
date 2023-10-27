@@ -1,6 +1,7 @@
 package com.example.maintenanceservice.Controller;
 
 import com.example.maintenanceservice.Model.Maintenance;
+import com.example.maintenanceservice.Security.SystemSecurity;
 import com.example.maintenanceservice.Service.Interface.MaintenanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +15,20 @@ public class MaintenanceController {
     private MaintenanceService maintanceService;
 
     @RequestMapping(value = "/underMaintenance", method = RequestMethod.POST)
-    public ResponseEntity<String> underMaintenance(@RequestParam long ScooterId){
+    public ResponseEntity<String> underMaintenance(@RequestHeader("Authorization") String token, @RequestParam long ScooterId){
+        String request = SystemSecurity.decode(token);
+        if(!SystemSecurity.isAllowed(request)){
+            throw new RuntimeException(request+ " Not allowed");
+        }
         return ResponseEntity.ok(maintanceService.underMaintenance(ScooterId).toString());
     }
 
     @RequestMapping(value = "/finalizeMaintenance", method = RequestMethod.PUT)
-    public ResponseEntity<String> finalizeMaintenance(@RequestParam("id") long maintenance){
+    public ResponseEntity<String> finalizeMaintenance(@RequestHeader("Authorization") String token, @RequestParam("id") long maintenance){
+        String request = SystemSecurity.decode(token);
+        if(!SystemSecurity.isAllowed(request)){
+            throw new RuntimeException(request+ " Not allowed");
+        }
         return ResponseEntity.ok(maintanceService.finalizeMaintenance(maintenance).toString());
     }
 
