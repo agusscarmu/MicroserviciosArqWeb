@@ -102,14 +102,11 @@ public class TravelServiceImpl implements TravelService {
     }
 
     @Override
-    public String updatePrice(float price) {
-        Travel.setPrice(price);
-        return "Price updated";
-    }
-
-    @Override
     public String updatePrice(float price, Date date) {
-        Travel.setPrice(price, date);
+        if(date == null)
+            Travel.setPrice(price);
+        else
+            Travel.setPrice(price, date);
         return "Price updated";
     }
 
@@ -120,12 +117,9 @@ public class TravelServiceImpl implements TravelService {
     }
 
     @Override
-    public String getTotalFactured() {
-        return null;
-    }
-
-    @Override
-    public String getTotalFactured(int month1, int month2, int year) {
+    public Double getTotalFactured(int month1, int month2, int year) {
+        if(month1 == 0 || month2 == 0 || year == 0)
+            return null;
         return travelRepository.getTotalFacturedBetween(month1, month2, year);
     }
 }

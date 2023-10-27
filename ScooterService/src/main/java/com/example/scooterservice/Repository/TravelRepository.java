@@ -16,5 +16,5 @@ public interface TravelRepository extends JpaRepository<Travel, Long>{
     Integer scooterInStation(long scooterId);
 
     @Query("SELECT SUM(t.totalPrice) FROM Travel t WHERE MONTH(t.createdAt) BETWEEN ?1 AND ?2 AND YEAR(t.createdAt) = ?3")
-    String getTotalFacturedBetween(int month1, int month2, int year);
+    Double getTotalFacturedBetween(int month1, int month2, int year);
 }

@@ -62,8 +62,12 @@ public class ScooterController {
         return ResponseEntity.ok(scooterService.deleteScooter(scooterId));
     }
 
-    @RequestMapping(value = "/status", method = RequestMethod.PUT)
-    public Serializable getStatus(){
+    @RequestMapping(value = "/status", method = RequestMethod.GET)
+    public Serializable getStatus(@RequestHeader("Authorization") String token){
+        String request = SystemSecurity.decode(token);
+        if(!SystemSecurity.isAllowed(request)){
+            throw new RuntimeException(request+ " Not allowed");
+        }
         return scooterService.getStatus();
     }
 

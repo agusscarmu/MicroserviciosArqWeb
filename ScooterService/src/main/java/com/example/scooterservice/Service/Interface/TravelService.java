@@ -17,13 +17,10 @@ public interface TravelService {
     String startTravel(long idScooter, long idAccount);
     String finishTravel(long id);
     void registerObserver(TravelObserver observer);
-    String updatePrice(float price);
 
     String updatePrice(float price, Date date);
 
     String startTravelWTime(Travel travel);
 
-    String getTotalFactured();
-
-    String getTotalFactured(int month1, int month2, int year);
+    Double getTotalFactured(int month1, int month2, int year);
 }

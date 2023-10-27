@@ -34,7 +34,11 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/status",method = RequestMethod.PUT)
-    public ResponseEntity<String> activateOrDeactivateAccount(@RequestParam("id") long account, @RequestParam("active") boolean action){
+    public ResponseEntity<String> activateOrDeactivateAccount(@RequestHeader("Authorization") String token ,@RequestParam("id") long account, @RequestParam("active") boolean action){
+        String request = SystemSecurity.decode(token);
+        if(!SystemSecurity.isAllowed(request)){
+            throw new RuntimeException(request+ " Not allowed");
+        }
         return ResponseEntity.ok(accountService.activateOrDeactivateAccount(account,action).toString());
     }
 

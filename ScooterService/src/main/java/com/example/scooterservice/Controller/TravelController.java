@@ -2,6 +2,7 @@ package com.example.scooterservice.Controller;
 
 import com.example.scooterservice.DTO.Travel.TravelDTO;
 import com.example.scooterservice.Model.Travel;
+import com.example.scooterservice.Security.SystemSecurity;
 import com.example.scooterservice.Service.Interface.TravelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,17 +31,14 @@ public class TravelController {
     }
 
     @RequestMapping(value = "/updatePrice", method = RequestMethod.PUT)
-    public ResponseEntity<String> updatePrice(@RequestParam float price, @RequestParam(name="date",required = false)String dateParam){
-        if(dateParam != null){
-            try {
-                Date date = new SimpleDateFormat("dd/MM/yyyy").parse(dateParam);
-                return ResponseEntity.ok(travelService.updatePrice(price, date));
-            }catch (Exception e){
-                return ResponseEntity.badRequest().body("Invalid date format");
-            }
+    public ResponseEntity<String> updatePrice(@RequestHeader("Authorization") String token,@RequestParam float price, @RequestParam(name="date",required = false)Date date){
+        String request = SystemSecurity.decode(token);
+        if(!SystemSecurity.isAllowed(request)){
+            throw new RuntimeException(request+ " Not allowed");
         }
-        return ResponseEntity.ok(travelService.updatePrice(price));
+        return ResponseEntity.ok(travelService.updatePrice(price, date));
     }
+
     @RequestMapping(value = "/{id}/finish", method = RequestMethod.PUT)
     public ResponseEntity<String> finishTravel(@PathVariable long id){
         return ResponseEntity.ok(travelService.finishTravel(id));
@@ -62,10 +60,12 @@ public class TravelController {
     }
 
     @RequestMapping(value = "/totalFactured/between", method = RequestMethod.GET)
-    public ResponseEntity<String> getTotalFactured(@RequestParam(required = false) int month1, @RequestParam(required = false) int month2, @RequestParam(required = false) int year){
-        if(month1 == 0 || month2 == 0 || year == 0)
-            return ResponseEntity.ok(travelService.getTotalFactured().toString());
-        return ResponseEntity.ok(travelService.getTotalFactured(month1,month2,year).toString());
+    public Double getTotalFactured(@RequestHeader("Authorization") String token, @RequestParam(required = false) int month1, @RequestParam(required = false) int month2, @RequestParam(required = false) int year){
+        String request = SystemSecurity.decode(token);
+        if(!SystemSecurity.isAllowed(request)){
+            throw new RuntimeException(request+ " Not allowed");
+        }
+        return travelService.getTotalFactured(month1,month2,year);
     }
 
 }

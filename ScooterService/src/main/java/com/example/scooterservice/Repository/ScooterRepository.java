@@ -23,7 +23,7 @@ public interface ScooterRepository extends JpaRepository<Scooter, Long> {
     void markScooterMaintenance(@Param("scooterId") Long scooterId, @Param("maintenance") boolean maintenance);
 
 
-    @Query("SELECT new com.example.scooterservice.DTO.Scooter.ScooterQuantityMaintenanceVsInUseDTO(SUM(CASE WHEN s.underMaintenance = true THEN 1 ELSE 0 END), SUM(CASE WHEN s.inUse = true THEN 1 ELSE 0 END)) FROM Scooter s")
+    @Query("SELECT new com.example.scooterservice.DTO.Scooter.ScooterQuantityMaintenanceVsInUseDTO(SUM(CASE WHEN s.inUse = true THEN 1 ELSE 0 END), SUM(CASE WHEN s.underMaintenance = true THEN 1 ELSE 0 END)) FROM Scooter s")
     Serializable getStatus();
 
     @Modifying

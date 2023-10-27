@@ -36,7 +36,11 @@ public class ScooterReportController {
     }
 
     @RequestMapping(value = "/byTravels" , method = RequestMethod.GET)
-    public List<Serializable> getReportByTravels(@RequestParam("moreThan") long x){
+    public List<Serializable> getReportByTravels(@RequestHeader("Authorization") String token, @RequestParam("moreThan") long x){
+        String request = SystemSecurity.decode(token);
+        if(!SystemSecurity.isAllowed(request)){
+            throw new RuntimeException(request+ " Not allowed");
+        }
         return scooterReportService.getReportByTravels(x);
     }
 
