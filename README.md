@@ -37,7 +37,7 @@ La empresa desea implementar un servicio de alquiler de monopatines electrónico
 
 El sistema se basa en una arquitectura de microservicios y utiliza una base de datos SQL, aunque en algunos casos se puede optar por utilizar MongoDB. Cada microservicio tiene su propia base de datos.
 
-⚠️ <span syle="color:yellow">AVISO: Los servicios REST se encuentran en su mayor parte protegidos para que solamente sean utilizados por otros servicios </span> ⚠️
+⚠️ __AVISO: Los servicios REST se encuentran en su mayor parte protegidos para que solamente sean utilizados por otros servicios__ ⚠️
 
 ### Primera Entrega
 
