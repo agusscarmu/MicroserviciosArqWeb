@@ -45,19 +45,27 @@ public class Travel {
 
     private double totalPrice;
 
-    private double currentPricePerMinute = getUpdatedPricePerMinute();
-
 
     private double kmTraveled;
 
     private boolean paused;
 
-    private static Date lastPriceChange;
-    private static double lastPricePerMinute;
-    private static double pricePerMinute = 15;
+    @Transient
+    private Date lastPriceChange;
+
+    @Transient
+    private double lastPricePerMinute;
+    @Transient
+    private double pricePerMinute;
+
+    private double currentPricePerMinute;
+
+
     private static final double kmPerHour = 25;
-    private static double extraPricePerMinute = 1.5;
-    private static final double pauseLimit = 2; // in minutes
+    @Transient
+    private double extraPricePerMinute ;
+
+    private long pauseLimit;
 
     public Travel(long accountId, long scooterId, Date createdAt, Date finishedAt, float pricePerMinute) {
         this.accountId = accountId;
@@ -83,15 +91,30 @@ public class Travel {
         this.createdAt = new Date();
     }
 
+    public Travel(long accountId, long scooterId, double pricePerMinute, long pauseLimit, double extraPricePerMinute, Date lastPriceChange) {
+        this.accountId = accountId;
+        this.scooterId = scooterId;
+        if(lastPriceChange==null){
+            this.pricePerMinute = pricePerMinute;
+        }else{
+            this.lastPricePerMinute = pricePerMinute;
+        }
+        this.currentPricePerMinute = getUpdatedPricePerMinute();
+        this.pauseLimit = pauseLimit;
+        this.extraPricePerMinute = extraPricePerMinute;
+        this.lastPriceChange = lastPriceChange;
+        this.createdAt = new Date();
+    }
+
     public void finishTravel(){
         if(this.paused){
             this.endPause();
         }
         this.finishedAt = new Date(System.currentTimeMillis());
         this.totalPrice = this.getPauseDuration() < pauseLimit ?
-                this.getUsageTime() * pricePerMinute :
-                ((double) (this.pauseStartedAt.getTime() - this.createdAt.getTime()) / (1000*60) * pricePerMinute) + ((double) (this.finishedAt.getTime() - (this.pauseStartedAt.getTime()+pauseLimit)) / (1000*60) * extraPricePerMinute * pricePerMinute);
-        this.kmTraveled = (this.getUsageTime()-this.getPauseDuration()) * (kmPerHour / 60);
+                (this.getUsageTime() - this.getPauseDuration()) * currentPricePerMinute :
+                ((double) (this.pauseStartedAt.getTime() - this.createdAt.getTime()) / (1000*60) * currentPricePerMinute) + ((double) (this.finishedAt.getTime() - (this.pauseStartedAt.getTime()+pauseLimit)) / (1000*60) * extraPricePerMinute * currentPricePerMinute);
+        this.kmTraveled = this.getPauseDuration() < pauseLimit ? (this.getUsageTime()-this.getPauseDuration()) * (kmPerHour / 60) : (this.getUsageTime()-pauseLimit) * (kmPerHour / 60);
     }
 
     public double getUsageTime(){
@@ -113,29 +136,11 @@ public class Travel {
         return ((double) (this.pauseFinishedAt.getTime() - this.pauseStartedAt.getTime()) / (1000 * 60)); // in minutes
     }
 
-    public static void setPrice(double price){
-        lastPriceChange = new Date();
-        lastPricePerMinute = price;
-    }
-
-    public static void setPrice(double price, Date date){
-        lastPriceChange = date;
-        lastPricePerMinute = price;
-    }
-
     private double getUpdatedPricePerMinute() {
-        Date currentDate = new Date();
-        if(lastPriceChange!=null && currentDate.after(lastPriceChange)){
+        Date now = new Date();
+        if(lastPriceChange!=null && now.after(this.lastPriceChange)){
             pricePerMinute = lastPricePerMinute;
         }
         return pricePerMinute;
-
     }
-
-    public double getCurrentPricePerMinute(){
-        double r = pricePerMinute;
-        return r;
-    }
-
-
 }

@@ -1,5 +1,6 @@
 package com.example.scooterservice.Service;
 
+import com.example.scooterservice.DTO.Travel.DataTravelDTO;
 import com.example.scooterservice.DTO.Travel.TravelDTO;
 import com.example.scooterservice.Model.Travel;
 import com.example.scooterservice.Observer.TravelObserver;
@@ -9,9 +10,11 @@ import com.example.scooterservice.Service.Interface.TravelService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -26,14 +29,25 @@ public class TravelServiceImpl implements TravelService {
     private final WebClient webClientMaintenance = WebClient.builder().baseUrl("http://localhost:8083").build();
     private final WebClient webClientAccount = WebClient.builder().baseUrl("http://localhost:8081").build();
 
+    private final WebClient webClientDataServie = WebClient.builder().baseUrl("http://localhost:8086").build();
+
+
     @Override
     public void registerObserver(TravelObserver observer) {
         observers.add(observer);
     }
 
+    private DataTravelDTO getLastUpdate() {
+        return webClientDataServie.get()
+                .uri("/dataTravel/lastUpdate")
+                .exchange()
+                .flatMap(response -> response.toEntity(DataTravelDTO.class))
+                .block().getBody();
+    }
     @Override
     public String startTravel(long idScooter, long idAccount) {
-        Travel travel = new Travel(idAccount, idScooter);
+        DataTravelDTO dataTravelDTO = getLastUpdate();
+        Travel travel = new Travel(idAccount, idScooter, dataTravelDTO.getPricePerMinute(), dataTravelDTO.getPauseLimit(), dataTravelDTO.getExtraPricePerMinute(), dataTravelDTO.getAppliedDate());
         for(TravelObserver observer : observers){
             if(!observer.travelStarted(idScooter)){
                 return "Scooter not available";
@@ -103,10 +117,10 @@ public class TravelServiceImpl implements TravelService {
 
     @Override
     public String updatePrice(float price, Date date) {
-        if(date == null)
-            Travel.setPrice(price);
-        else
-            Travel.setPrice(price, date);
+//        if(date == null)
+//            Travel.setPrice(price);
+//        else
+//            Travel.setPrice(price, date);
         return "Price updated";
     }
 
