@@ -103,10 +103,11 @@ public class ScooterServiceImpl implements ScooterService {
     @Transactional
     @Override
     public boolean travelFinished(long id) {
-        if(scooterRepository.inStation(id)==null){
+        Long station = scooterRepository.inStation(id);
+        if(station==null){
             return false;
         }
-        scooterRepository.travelFinished(id);
+        scooterRepository.travelFinished(id,station);
         return true;
     }
 }

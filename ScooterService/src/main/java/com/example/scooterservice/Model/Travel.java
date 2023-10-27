@@ -56,6 +56,8 @@ public class Travel {
     private static double lastPricePerMinute;
     private static double pricePerMinute = 15;
     private static final double kmPerHour = 25;
+    private static double extraPricePerMinute = 1.5;
+    private static final double pauseLimit = 2; // in minutes
 
     public Travel(long accountId, long scooterId, Date createdAt, Date finishedAt, float pricePerMinute) {
         this.accountId = accountId;
@@ -86,7 +88,9 @@ public class Travel {
             this.endPause();
         }
         this.finishedAt = new Date(System.currentTimeMillis());
-        this.totalPrice = this.getUsageTime() * pricePerMinute;
+        this.totalPrice = this.getPauseDuration() < pauseLimit ?
+                this.getUsageTime() * pricePerMinute :
+                ((double) (this.pauseStartedAt.getTime() - this.createdAt.getTime()) / (1000*60) * pricePerMinute) + ((double) (this.finishedAt.getTime() - (this.pauseStartedAt.getTime()+pauseLimit)) / (1000*60) * extraPricePerMinute * pricePerMinute);
         this.kmTraveled = (this.getUsageTime()-this.getPauseDuration()) * (kmPerHour / 60);
     }
 

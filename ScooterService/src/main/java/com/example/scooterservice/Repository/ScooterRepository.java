@@ -38,12 +38,13 @@ public interface ScooterRepository extends JpaRepository<Scooter, Long> {
     Integer available(long id);
 
     @Modifying
+    @Query("UPDATE Scooter s SET s.stationId = :stationId, s.inUse = false WHERE s.id = :id")
     @Transactional
-    @Query("UPDATE Scooter s SET s.inUse = false WHERE s.id = :id")
-    void travelFinished(long id);
+    void travelFinished(@Param("id") long id, @Param("stationId") Long stationId);
 
-    @Query("SELECT 1 FROM Scooter s JOIN Station st ON s.location = st.location WHERE s.id = :id AND st.location = s.location")
-    Integer inStation(long id);
+
+    @Query("SELECT st.id FROM Scooter s JOIN Station st ON s.location = st.location WHERE s.id = :id AND st.location = s.location")
+    Long inStation(long id);
 
     @Modifying
     @Transactional
