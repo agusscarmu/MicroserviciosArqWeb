@@ -22,5 +22,5 @@ public interface TravelService {
 
     String startTravelWTime(Travel travel);
 
-    Double getTotalFactured(int month1, int month2, int year);
+    Double getTotalFactured(Integer month1, Integer month2, Integer year);
 }

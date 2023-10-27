@@ -117,9 +117,10 @@ public class TravelServiceImpl implements TravelService {
     }
 
     @Override
-    public Double getTotalFactured(int month1, int month2, int year) {
-        if(month1 == 0 || month2 == 0 || year == 0)
-            return null;
-        return travelRepository.getTotalFacturedBetween(month1, month2, year);
+    public Double getTotalFactured(Integer month1, Integer month2, Integer year) {
+        if(month1 == null || month2 == null || year == null)
+            return travelRepository.getTotalFactured();
+        else
+            return travelRepository.getTotalFacturedBetween(month1, month2, year);
     }
 }

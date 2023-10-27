@@ -58,12 +58,13 @@ public class AdminServiceImpl implements AdminService {
 
 
     @Override
-    public Double getTotalFactured(int month1, int month2, int year) {
-        if(month1 == 0 || month2 == 0 || year == 0)
-            return null;
+    public Double getTotalFactured(Integer month1, Integer month2, Integer year) {
+        String url = (month1 == null || month2 == null || year == null)?
+                "/travels/totalFactured" :
+                "/travels/totalFactured?month1={month1}&month2={month2}&year={year}";
         return webClientScooter
                 .get()
-                .uri("/travels/totalFactured/between?month1={month1}&month2={month2}&year={year}", month1, month2, year)
+                .uri(url, month1, month2, year)
                 .header("Authorization", "Bearer " + SystemSecurity.getToken())
                 .retrieve()
                 .bodyToMono(Double.class)

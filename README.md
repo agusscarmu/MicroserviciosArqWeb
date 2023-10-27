@@ -47,8 +47,8 @@ La primera entrega del sistema implica:
 
 #### a) Generar un Reporte de Uso de Monopatines por Kilómetros
 
-- **Método HTTP**: PUT
-- **Endpoint**: `/getReport?filter={filter}`
+- **Método HTTP**: GET
+- **Endpoint**: `localhost:8085/maintenanceManager/getReport?filter={filter}`
 - **Endpoint(Optional)**: `/getReport?filter={filter}&pauseTime={boolean}`
 - **Descripción**: Permite al encargado de mantenimiento generar un reporte de uso de monopatines en función de los kilómetros recorridos para determinar si un monopatín requiere mantenimiento. El reporte puede configurarse para incluir o excluir los tiempos de pausa. AVISO: Si no se le aplica un filtro se retornara null.
 - **Filtros Posibles**: 
@@ -59,37 +59,37 @@ La primera entrega del sistema implica:
 #### b) Anular Cuentas
 
 - **Método HTTP**: PUT
-- **Endpoint**: `/changeAccountStatus?id={AccountId}&status={boolean}`
+- **Endpoint**: `localhost:8084/admin/changeAccountStatus?id={AccountId}&status={boolean}`
 - **Descripción**: Permite al administrador inhabilitar temporalmente una cuenta de usuario. Status: true = habilitada, false = deshabilitada.
 
 #### c) Consultar Monopatines con Más de X Viajes en un Año
 
 - **Método HTTP**: GET
-- **Endpoint**: `/scooter/reportBy?travels={numberOfTravels}`
+- **Endpoint**: `localhost:8084/admin/scooter/reportBy?travels={numberOfTravels}`
 - **Descripción**: Permite al administrador consultar los monopatines que han tenido más de `X` viajes en un año específico.
 
 #### d) Consultar el Total Facturado en un Rango de Meses de un Año
 
 - **Método HTTP**: GET
-- **Endpoint**: `/totalFactured`
-- **Endpoint(Optional)**: `/totalFactured?month1={month1}&month2={month2}&year={year}`
+- **Endpoint**: `localhost:8084/admin/totalFactured`
+- **Endpoint(Optional)**: `localhost:8084/admin/totalFactured?month1={month1}&month2={month2}&year={year}`
 - **Descripción**: Permite al administrador consultar el total facturado en un rango de meses de un año específico, existe la posibilidad de obtener el total facturado sin una ventana de tiempo, y si se desea ver el total facturado entre ciertos meses se puede usar el endpoint opcional.
 
 #### e) Consultar la Cantidad de Monopatines en Operación vs. Mantenimiento
 
 - **Método HTTP**: GET
-- **Endpoint**: `/scooter/status`
+- **Endpoint**: `localhost:8084/admin/scooter/status`
 - **Descripción**: Permite al administrador consultar la cantidad de monopatines actualmente en operación y la cantidad de monopatines en mantenimiento.
 
 #### f) Realizar un Ajuste de Precios
 
 - **Método HTTP**: PUT
-- **Endpoint**: `/travel/updatePrice?price={newPrice}`
-- **Endpoint(Optional)**: `/travel/updatePrice?price={newPrice}&date={dateParam}`
+- **Endpoint**: `localhost:8084/admin/travel/updatePrice?price={newPrice}`
+- **Endpoint(Optional)**: `localhost:8084/admin/travel/updatePrice?price={newPrice}&date={dateParam}`
 - **Descripción**: Permite al administrador realizar un ajuste de precios para el servicio de alquiler de monopatines, y a partir de cierta fecha, habilitar los nuevos precios. Existe la posibilidad de agregar el nuevo precio en el momento, o de establecer una fecha de cambio con el formato 'dd/MM/yyyy'.
 
 #### g) Listar Monopatines Cercanos a la Zona del Usuario
 
-- **Método HTTP**: PUT
-- **Endpoint**: `/localizeScooter?id={userId}`
+- **Método HTTP**: GET
+- **Endpoint**: `localhost:8081/users/localizeScooter?id={userId}`
 - **Descripción**: Permite al usuario obtener un listado de los monopatines cercanos a su ubicación actual, para esto se pasa como parametro el ID del usuario, donde dentro del UserService implementara un algoritmo para saber la ubicacion actual. Esto facilita la búsqueda de un monopatín disponible en la zona del usuario.

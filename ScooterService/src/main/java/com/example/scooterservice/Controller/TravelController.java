@@ -59,8 +59,8 @@ public class TravelController {
         return ResponseEntity.ok(travelService.startTravelWTime(travel).toString());
     }
 
-    @RequestMapping(value = "/totalFactured/between", method = RequestMethod.GET)
-    public Double getTotalFactured(@RequestHeader("Authorization") String token, @RequestParam(required = false) int month1, @RequestParam(required = false) int month2, @RequestParam(required = false) int year){
+    @RequestMapping(value = "/totalFactured", method = RequestMethod.GET)
+    public Double getTotalFactured(@RequestHeader("Authorization") String token, @RequestParam(required = false) Integer month1, @RequestParam(required = false) Integer month2, @RequestParam(required = false) Integer year){
         String request = SystemSecurity.decode(token);
         if(!SystemSecurity.isAllowed(request)){
             throw new RuntimeException(request+ " Not allowed");

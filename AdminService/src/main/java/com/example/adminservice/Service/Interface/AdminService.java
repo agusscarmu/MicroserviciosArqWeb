@@ -13,7 +13,7 @@ public interface AdminService {
 
     List<Serializable> reportByTravels(int travels);
 
-    Double getTotalFactured(int m1, int m2, int y);
+    Double getTotalFactured(Integer m1, Integer m2, Integer y);
 
     Serializable getStatus();
 

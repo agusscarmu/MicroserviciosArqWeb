@@ -35,7 +35,7 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/totalFactured", method = RequestMethod.GET)
-    public ResponseEntity<Double> getTotalFactured(@RequestParam(required = false) int month1, @RequestParam(required = false) int month2, @RequestParam(required = false) int year){
+    public ResponseEntity<Double> getTotalFactured(@RequestParam(required = false) Integer month1, @RequestParam(required = false) Integer month2, @RequestParam(required = false) Integer year){
         return ResponseEntity.ok(adminService.getTotalFactured(month1,month2,year));
     }
 
