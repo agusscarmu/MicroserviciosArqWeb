@@ -56,7 +56,7 @@ public class Travel {
     @Transient
     private double lastPricePerMinute;
     @Transient
-    private double pricePerMinute;
+    private double pricePerMinute = 15;
 
     private double currentPricePerMinute;
 
