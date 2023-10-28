@@ -116,15 +116,6 @@ public class TravelServiceImpl implements TravelService {
     }
 
     @Override
-    public String updatePrice(float price, Date date) {
-//        if(date == null)
-//            Travel.setPrice(price);
-//        else
-//            Travel.setPrice(price, date);
-        return "Price updated";
-    }
-
-    @Override
     public String startTravelWTime(Travel travel) {
         travelRepository.save(travel);
         return "Travel started";

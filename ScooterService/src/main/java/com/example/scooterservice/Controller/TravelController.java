@@ -30,15 +30,6 @@ public class TravelController {
 
     }
 
-    @RequestMapping(value = "/updatePrice", method = RequestMethod.PUT)
-    public ResponseEntity<String> updatePrice(@RequestHeader("Authorization") String token,@RequestParam float price, @RequestParam(name="date",required = false)Date date){
-        String request = SystemSecurity.decode(token);
-        if(!SystemSecurity.isAllowed(request)){
-            throw new RuntimeException(request+ " Not allowed");
-        }
-        return ResponseEntity.ok(travelService.updatePrice(price, date));
-    }
-
     @RequestMapping(value = "/{id}/finish", method = RequestMethod.PUT)
     public ResponseEntity<String> finishTravel(@PathVariable long id){
         return ResponseEntity.ok(travelService.finishTravel(id));

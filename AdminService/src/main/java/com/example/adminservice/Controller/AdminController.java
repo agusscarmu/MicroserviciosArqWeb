@@ -3,9 +3,12 @@ package com.example.adminservice.Controller;
 import com.example.adminservice.Model.Admin;
 
 import com.example.adminservice.Service.Interface.AdminService;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -44,9 +47,15 @@ public class AdminController {
         return adminService.getStatus();
     }
 
-    @RequestMapping(value = "/travel/updatePrice", method = RequestMethod.PUT)
-    public ResponseEntity<String> updatePrice(@RequestParam float price, @RequestParam(name="date",required = false)String dateParam){
-        return ResponseEntity.ok(adminService.updatePrice(price, dateParam));
+    @RequestMapping(value = "/travel/updatePrice", method = RequestMethod.POST)
+    public String addDataTravel(HttpServletRequest request,
+            @RequestParam(required = false) Double price, @RequestParam(required = false) Long pauseLimit, @RequestParam(required = false) Double extraPricePerMinute, @RequestParam(required = false) Date date){
+
+        String queryString = "?"+request.getQueryString();
+
+        adminService.updatePrice(price, pauseLimit, extraPricePerMinute, date, queryString);
+        return "Price updated";
     }
+
 
 }

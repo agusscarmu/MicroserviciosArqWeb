@@ -18,8 +18,6 @@ public interface TravelService {
     String finishTravel(long id);
     void registerObserver(TravelObserver observer);
 
-    String updatePrice(float price, Date date);
-
     String startTravelWTime(Travel travel);
 
     Double getTotalFactured(Integer month1, Integer month2, Integer year);

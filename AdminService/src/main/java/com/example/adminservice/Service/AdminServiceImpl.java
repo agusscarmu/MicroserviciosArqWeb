@@ -26,6 +26,7 @@ public class AdminServiceImpl implements AdminService {
 
     private final WebClient webClientMaintenance = WebClient.builder().baseUrl("http://localhost:8083").build();
 
+    private final WebClient webClientData = WebClient.builder().baseUrl("http://localhost:8086").build();
     @Override
     public String addAdmin(Admin admin) {
         adminRepository.save(admin);
@@ -83,24 +84,9 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public String updatePrice(float price, String dateParam) {
-        if(dateParam != null){
-            try {
-                Date date = new SimpleDateFormat("dd/MM/yyyy").parse(dateParam);
-                return webClientScooter
-                        .put()
-                        .uri("/travels/updatePrice?price={price}&date={date}", price, date)
-                        .header("Authorization", "Bearer " + SystemSecurity.getToken())
-                        .retrieve()
-                        .bodyToMono(String.class)
-                        .block();
-            }catch (Exception e){
-                return "Invalid date format";
-            }
-        }
-        return webClientScooter
-                .put()
-                .uri("/travels/updatePrice?price={price}", price)
+    public void updatePrice(Double price, Long pauseLimit, Double extraPricePerMinute, Date date, String url) {
+        webClientData.post()
+                .uri("/dataTravel/update"+url, price, pauseLimit, extraPricePerMinute, date)
                 .header("Authorization", "Bearer " + SystemSecurity.getToken())
                 .retrieve()
                 .bodyToMono(String.class)

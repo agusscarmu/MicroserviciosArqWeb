@@ -39,6 +39,10 @@ El sistema se basa en una arquitectura de microservicios y utiliza una base de d
 
 ⚠️ __AVISO: Los servicios REST se encuentran en su mayor parte protegidos para que solamente sean utilizados por otros servicios__ ⚠️
 
+### Endpoints
+
+
+
 ### Primera Entrega
 
 La primera entrega del sistema implica:
@@ -85,13 +89,15 @@ La primera entrega del sistema implica:
 
 #### f) Realizar un Ajuste de Precios
 
-- **Método HTTP**: PUT
+- **Método HTTP**: POST
 - **Endpoint**: `localhost:8084/admin/travel/updatePrice?price={newPrice}`
-- **Endpoint(Optional)**: `localhost:8084/admin/travel/updatePrice?price={newPrice}&date={dateParam}`
-- **Descripción**: Permite al administrador realizar un ajuste de precios para el servicio de alquiler de monopatines, y a partir de cierta fecha, habilitar los nuevos precios. Existe la posibilidad de agregar el nuevo precio en el momento, o de establecer una fecha de cambio con el formato 'dd/MM/yyyy'.
+- **Endpoint(Optional)**: `localhost:8084/admin/travel/updatePrice?price={newPrice}&date={dateParam}&extraPricePerMinute={extraForExtendedPause}&pauseLimit={pauseLimitTime}`
+- **Descripción**: Permite al administrador realizar un ajuste de precios para el servicio de alquiler de monopatines, y a partir de cierta fecha, habilitar los nuevos precios. Existe la posibilidad de agregar el nuevo precio en el momento, o de establecer una fecha de cambio con el formato 'dd/MM/yyyy', asi como tambien cambiar el precio que se cobra extra por exceso de tiempo en pausa, o tambien el mismo tiempo de pausa (todos los parametros son opcionales).
 
 #### g) Listar Monopatines Cercanos a la Zona del Usuario
 
 - **Método HTTP**: GET
 - **Endpoint**: `localhost:8081/users/localizeScooter?id={userId}`
 - **Descripción**: Permite al usuario obtener un listado de los monopatines cercanos a su ubicación actual, para esto se pasa como parametro el ID del usuario, donde dentro del UserService implementara un algoritmo para saber la ubicacion actual. Esto facilita la búsqueda de un monopatín disponible en la zona del usuario.
+
+

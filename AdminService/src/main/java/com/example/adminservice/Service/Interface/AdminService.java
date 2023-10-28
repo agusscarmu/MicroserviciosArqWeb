@@ -4,6 +4,7 @@ import com.example.adminservice.Model.Admin;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 public interface AdminService {
@@ -17,5 +18,5 @@ public interface AdminService {
 
     Serializable getStatus();
 
-    String updatePrice(float price, String dateParam);
+    void updatePrice(Double price, Long pauseLimit, Double extraPricePerMinute, Date date, String url);
 }
