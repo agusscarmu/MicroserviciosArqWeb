@@ -27,7 +27,7 @@ public class AdminController {
         return ResponseEntity.ok(adminService.addAdmin(admin).toString());
     }
 
-    @RequestMapping(value = "/changeAccountStatus", method = RequestMethod.PUT)
+    @PutMapping("/changeAccountStatus")
     public ResponseEntity<String> changeAccountStatus(@RequestParam("id") long id, @RequestParam("status") boolean status){
         return ResponseEntity.ok(adminService.changeAccountStatus(id, status).toString());
     }

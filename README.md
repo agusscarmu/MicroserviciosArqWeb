@@ -6,6 +6,15 @@
 
 La empresa desea implementar un servicio de alquiler de monopatines electrónicos en una ciudad capital. El servicio se basa en una flota de monopatines estacionados en paradas predefinidas. Los usuarios deben crear una cuenta asociada a Mercado Pago y cargar créditos antes de utilizar el servicio. Un usuario puede tener varios usuarios asociados a su cuenta, y un usuario puede estar asociado a múltiples cuentas.
 
+### Bases de datos necesarias
+
+- AccountService
+- AdminService
+- ScooterService
+- DataService
+- MaintenanceService
+- MaintenanceManagerService
+
 ### Funcionalidades Principales
 
 1. **Registro de Usuarios**:
@@ -100,4 +109,74 @@ La primera entrega del sistema implica:
 - **Endpoint**: `localhost:8081/users/localizeScooter?id={userId}`
 - **Descripción**: Permite al usuario obtener un listado de los monopatines cercanos a su ubicación actual, para esto se pasa como parametro el ID del usuario, donde dentro del UserService implementara un algoritmo para saber la ubicacion actual. Esto facilita la búsqueda de un monopatín disponible en la zona del usuario.
 
+### Endpoints y Datos para POST
+
+1. **Endpoint: http://localhost:8081/users/add**
+   
+   **JSON de Solicitud:**
+   ```json
+   {
+     "firstName": "NOMBRE",
+     "lastName": "APELLIDO",
+     "phone": "121490",
+     "email": "example@example.com",
+     "accounts": []
+   }
+   ```
+
+2. **Endpoint: http://localhost:8081/mercadoPago/add**
+   
+   **JSON de Solicitud:**
+   ```json
+   {
+     "balance": 120000.00
+   }
+   ```
+
+3. **Endpoint: http://localhost:8081/account/add**
+   
+   **JSON de Solicitud:**
+   ```json
+   {
+       "mercadoPagoId": 1,
+       "users": [
+           {
+               "id": 1
+           }
+       ],
+       "createdAt": "2023-10-16T18:37:31.901+00:00"
+   }
+   ```
+
+4. **Endpoint: http://localhost:8082/station/add**
+   
+   **JSON de Solicitud:**
+   ```json
+   {
+       "id": 1,
+       "location": "Plaza centro"
+   }
+   ```
+
+5. **Endpoint: http://localhost:8082/scooter/add**
+   
+   **JSON de Solicitud:**
+   ```json
+   {
+       "underMaintenance": false,
+       "inUse": false,
+       "location": "Plaza centro",
+       "stationId": 1
+   }
+   ```
+
+6. **Endpoint: http://localhost:8082/travels/start?idScooter={IDScooter}&idAccount={IDAccount}**
+   
+   **Solicitud:**
+   No utiliza JSON para esta solicitud, utiliza simplemente IDs pasados por parámetros.
+
+7. **Endpoint: http://localhost:8085/maintenanceManager/underMaintenance?ScooterId={IDScooter}**
+   
+   **Solicitud:**
+   No utiliza JSON para esta solicitud, utiliza simplemente IDs pasados por parámetros.
 
