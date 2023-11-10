@@ -9,11 +9,10 @@ La empresa desea implementar un servicio de alquiler de monopatines electrónico
 ### Bases de datos necesarias
 
 - AccountService
-- AdminService
+- MonitoringService
 - ScooterService
 - DataService
 - MaintenanceService
-- MaintenanceManagerService
 
 ### Funcionalidades Principales
 
@@ -42,6 +41,11 @@ La empresa desea implementar un servicio de alquiler de monopatines electrónico
    - Puede realizar ajustes de precios y habilitar los nuevos precios a partir de una fecha específica.
    - Puede consultar monopatines con un cierto número de viajes en un año y el total facturado en un rango de meses de cierto año.
 
+6. **Registro e Ingreso de Usuario Administrador y/o Mantenimiento**
+   - Es necesario hacer registro de un usuario con rol de Administrador y/o Mantenimiento para poder hacer uso de sus 
+   respectivos Endpoints
+   - Es necesario hacer login de un usuario para recibir el token que habilite a hacer uso de los Endpoints 
+
 ## Arquitectura del Sistema
 
 El sistema se basa en una arquitectura de microservicios y utiliza una base de datos SQL, aunque en algunos casos se puede optar por utilizar MongoDB. Cada microservicio tiene su propia base de datos.
@@ -63,7 +67,7 @@ La primera entrega del sistema implica:
 #### a) Generar un Reporte de Uso de Monopatines por Kilómetros
 
 - **Método HTTP**: GET
-- **Endpoint**: `localhost:8085/maintenanceManager/getReport?filter={filter}`
+- **Endpoint**: `localhost:8084/maintenanceManager/getReport?filter={filter}`
 - **Endpoint(Optional)**: `/getReport?filter={filter}&pauseTime={boolean}`
 - **Descripción**: Permite al encargado de mantenimiento generar un reporte de uso de monopatines en función de los kilómetros recorridos para determinar si un monopatín requiere mantenimiento. El reporte puede configurarse para incluir o excluir los tiempos de pausa. AVISO: Si no se le aplica un filtro se retornara null.
 - **Filtros Posibles**: 
@@ -170,12 +174,35 @@ La primera entrega del sistema implica:
    }
    ```
 
-6. **Endpoint: http://localhost:8082/travels/start?idScooter={IDScooter}&idAccount={IDAccount}**
+6. **Endpoint: http://localhost:8084/auth/register**
+   
+   Es posible el registro con otorgamiento de roles
+
+   **JSON de Solicitud:**
+   ```json
+      {
+         "username": "admin",
+         "password": 12345,
+         "admin": true,
+         "maintenance": false
+      }
+   ```   
+7. **Endpoint: http://localhost:8084/auth/login**
+   
+   **JSON de Solicitud:**
+   ```json
+      {
+         "username": "admin",
+         "password": 12345
+      }
+   ```   
+
+8. **Endpoint: http://localhost:8082/travels/start?idScooter={IDScooter}&idAccount={IDAccount}**
    
    **Solicitud:**
    No utiliza JSON para esta solicitud, utiliza simplemente IDs pasados por parámetros.
 
-7. **Endpoint: http://localhost:8085/maintenanceManager/underMaintenance?ScooterId={IDScooter}**
+9. **Endpoint: http://localhost:8084/maintenanceManager/underMaintenance?ScooterId={IDScooter}**
    
    **Solicitud:**
    No utiliza JSON para esta solicitud, utiliza simplemente IDs pasados por parámetros.
