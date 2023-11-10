@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="9818829b-fb9f-45f2-82d5-b9d9547188d8" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/adminservice/AdminServiceApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/adminservice/Controller/AdminController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/adminservice/Controller/AuthController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/adminservice/Controller/MaintenanceManagerController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/adminservice/Model/Role.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/adminservice/Model/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/adminservice/Repository/AdminRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/adminservice/Security/AuthResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/adminservice/Security/AuthorityConstant.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/adminservice/Security/KeyEncoder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/adminservice/Security/SystemSecurity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/adminservice/Security/config/ApplicationConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/adminservice/Security/config/SecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/adminservice/Security/jwt/JwtAuthenticationFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/adminservice/Security/jwt/JwtService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/adminservice/Service/AdminServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/adminservice/Service/AuthServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/adminservice/Service/Interface/AdminService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/adminservice/Service/Interface/AuthService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/adminservice/Service/Interface/MaintenanceManagerService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/adminservice/Service/MaintenanceManagerServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/adminservice/dto/AuthRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/adminservice/dto/RegisterRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/adminservice/UserServiceApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MaintenanceManagerService/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MaintenanceManagerService/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MaintenanceManagerService/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MaintenanceManagerService/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MaintenanceManagerService/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MaintenanceManagerService/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MaintenanceManagerService/src/main/java/com/example/maintenancemanagerservice/Controller/MaintenanceManagerController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MaintenanceManagerService/src/main/java/com/example/maintenancemanagerservice/MaintenanceManagerServiceApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MaintenanceManagerService/src/main/java/com/example/maintenancemanagerservice/Model/MaintenanceManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MaintenanceManagerService/src/main/java/com/example/maintenancemanagerservice/Security/SystemSecurity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MaintenanceManagerService/src/main/java/com/example/maintenancemanagerservice/Service/Interface/MaintenanceManagerService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MaintenanceManagerService/src/main/java/com/example/maintenancemanagerservice/Service/MaintenanceManagerServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MaintenanceManagerService/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MaintenanceManagerService/src/test/java/com/example/maintenancemanagerservice/MaintenanceManagerServiceApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/docker/mongodb.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/docker/mysql.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/com/monopatin/authservice/AuthServiceApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/com/monopatin/authservice/config/MongoDbConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/com/monopatin/authservice/config/SecurityConfiguration.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/com/monopatin/authservice/entity/mongodb/Producto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/com/monopatin/authservice/entity/mysql/Account.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/com/monopatin/authservice/entity/mysql/Authority.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/com/monopatin/authservice/entity/mysql/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/com/monopatin/authservice/repository/mongodb/ProductoMongoRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/com/monopatin/authservice/repository/mysql/AccountRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/com/monopatin/authservice/repository/mysql/AuthorityRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/com/monopatin/authservice/repository/mysql/UserRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/com/monopatin/authservice/security/DomainUserDetailsService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/com/monopatin/authservice/security/jwt/JWTFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/com/monopatin/authservice/security/jwt/JwtConfigurer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/com/monopatin/authservice/security/jwt/TokenProvider.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/com/monopatin/authservice/security/jwt/exception/EnumJWTException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/com/monopatin/authservice/security/jwt/exception/ExpiredTokenException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/com/monopatin/authservice/service/AuthorityConstant.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/com/monopatin/authservice/service/UserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/com/monopatin/authservice/service/dto/auth/request/AuthRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/com/monopatin/authservice/service/dto/producto/ProductoDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/com/monopatin/authservice/service/dto/user/request/UserRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/com/monopatin/authservice/service/dto/user/response/UserResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/com/monopatin/authservice/service/exception/user/EnumUserException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/com/monopatin/authservice/service/exception/user/ErrorDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/com/monopatin/authservice/service/exception/user/NotFoundException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/com/monopatin/authservice/service/exception/user/UserException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/com/monopatin/authservice/service/producto/ProductoService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/com/monopatin/authservice/web/rest/GeneralExceptionHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/com/monopatin/authservice/web/rest/PruebaController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/com/monopatin/authservice/web/rest/producto/ProductoController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/com/monopatin/authservice/web/rest/user/UserExceptionHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/java/com/monopatin/authservice/web/rest/user/UserResource.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/src/main/resources/db_auth.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth-service/src/test/java/com/monopatin/authservice/AuthServiceApplicationTests.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Enum" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2XJs7NCMLngCSbnRqIfKciJUFrG" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/agustincarmusciano/Desktop/TUDAI/Segundo/Arquitectura/TPE/AdminService/src/main/java/com/example/adminservice&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;f9137534ad783d12c72ce5825b984cc6&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/com/example/adminservice" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.example.adminservice.Service" />
+      <recent name="com.example.adminservice.Service.Interface" />
+      <recent name="com.example.adminservice.Security.jwt" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="MonitoringService" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="MonitoringService" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AdminServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="MonitoringService" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.adminservice.AdminServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9818829b-fb9f-45f2-82d5-b9d9547188d8" name="Changes" comment="" />
+      <created>1698358350611</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1698358350611</updated>
+      <workItem from="1698358351741" duration="26772000" />
+      <workItem from="1698794247047" duration="1555000" />
+      <workItem from="1699400076323" duration="1298000" />
+      <workItem from="1699486335205" duration="17773000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.nio.channels.ClosedChannelException" package="java.nio.channels" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
