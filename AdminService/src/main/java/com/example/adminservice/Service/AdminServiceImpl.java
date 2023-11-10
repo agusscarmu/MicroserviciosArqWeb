@@ -1,6 +1,6 @@
 package com.example.adminservice.Service;
 
-import com.example.adminservice.Model.Admin;
+import com.example.adminservice.Model.User;
 import com.example.adminservice.Repository.AdminRepository;
 import com.example.adminservice.Security.SystemSecurity;
 import com.example.adminservice.Service.Interface.AdminService;
@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -96,8 +95,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void addAdmin(Admin admin) {
-        adminRepository.save(admin);
+    public void addAdmin(User user) {
+        adminRepository.save(user);
     }
 
 

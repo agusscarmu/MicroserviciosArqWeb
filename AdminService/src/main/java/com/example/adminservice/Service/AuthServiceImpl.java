@@ -1,14 +1,15 @@
 package com.example.adminservice.Service;
 
-import com.example.adminservice.Model.Admin;
+import com.example.adminservice.Model.User;
 import com.example.adminservice.Model.Role;
 import com.example.adminservice.Security.AuthResponse;
 import com.example.adminservice.Security.jwt.JwtService;
 import com.example.adminservice.Service.Interface.AdminService;
 import com.example.adminservice.Service.Interface.AuthService;
+import com.example.adminservice.dto.RegisterRequestDTO;
 import org.springframework.security.authentication.AuthenticationManager;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;;
+;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -36,11 +37,16 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public AuthResponse register(Admin admin) {
-        admin.setPassword(passwordEncoder.encode(admin.getPassword()));
-        admin.setRole(Role.ADMIN);
-        adminService.addAdmin(admin);
-        UserDetails user= (UserDetails) adminService.findByUsername(admin.getUsername()).orElseThrow();
+    public AuthResponse register(RegisterRequestDTO registerUser) {
+        User newUser=new User();
+        newUser.setUsername(registerUser.getUsername());
+        newUser.setPassword(passwordEncoder.encode(registerUser.getPassword()));
+        if(registerUser.isAdmin())
+            newUser.addRole(Role.ADMIN);
+        if(registerUser.isMaintenance())
+            newUser.addRole(Role.MAINTENANCE);
+        adminService.addAdmin(newUser);
+        UserDetails user= (UserDetails) adminService.findByUsername(newUser.getUsername()).orElseThrow();
         String token=jwtService.getToken(user);
         return AuthResponse.builder()
                 .token(token)

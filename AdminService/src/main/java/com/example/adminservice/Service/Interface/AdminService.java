@@ -1,7 +1,6 @@
 package com.example.adminservice.Service.Interface;
 
-import com.example.adminservice.Model.Admin;
-import org.springframework.stereotype.Service;
+import com.example.adminservice.Model.User;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -22,5 +21,5 @@ public interface AdminService {
 
     Optional<Object> findByUsername(String username);
 
-    void addAdmin(Admin admin);
+    void addAdmin(User user);
 }
