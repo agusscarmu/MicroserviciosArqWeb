@@ -6,9 +6,9 @@ import org.springframework.stereotype.Service;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 public interface AdminService {
-    String addAdmin(Admin admin);
 
     String changeAccountStatus(long id, boolean status);
 
@@ -19,4 +19,8 @@ public interface AdminService {
     Serializable getStatus();
 
     void updatePrice(Double price, Long pauseLimit, Double extraPricePerMinute, Date date, String url);
+
+    Optional<Object> findByUsername(String username);
+
+    void addAdmin(Admin admin);
 }

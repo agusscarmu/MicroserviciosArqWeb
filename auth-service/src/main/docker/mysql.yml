@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  auth-mysql:
+    container_name: mysql
+    image: mysql:8.0.29
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_DATABASE=db_auth
+    ports:
+      - "127.0.0.1:33306:3306"
+    command: mysqld --lower_case_table_names=1 --skip-ssl --character_set_server=utf8mb4 --explicit_defaults_for_timestamp
+    networks:
+      - mysql_local
+networks:
+  mysql_local:

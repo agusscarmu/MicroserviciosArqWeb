@@ -5,7 +5,6 @@ import com.example.adminservice.Repository.AdminRepository;
 import com.example.adminservice.Security.SystemSecurity;
 import com.example.adminservice.Service.Interface.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -13,12 +12,15 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AdminServiceImpl implements AdminService {
 
     @Autowired
     AdminRepository adminRepository;
+
+
 
     private final WebClient webClientAccount = WebClient.builder().baseUrl("http://localhost:8081").build();
 
@@ -27,11 +29,6 @@ public class AdminServiceImpl implements AdminService {
     private final WebClient webClientMaintenance = WebClient.builder().baseUrl("http://localhost:8083").build();
 
     private final WebClient webClientData = WebClient.builder().baseUrl("http://localhost:8086").build();
-    @Override
-    public String addAdmin(Admin admin) {
-        adminRepository.save(admin);
-        return "Admin added successfully";
-    }
 
     @Override
     public String changeAccountStatus(long id, boolean active) {
@@ -91,6 +88,16 @@ public class AdminServiceImpl implements AdminService {
                 .retrieve()
                 .bodyToMono(String.class)
                 .block();
+    }
+
+    @Override
+    public Optional<Object> findByUsername(String username) {
+        return adminRepository.findByUsername(username);
+    }
+
+    @Override
+    public void addAdmin(Admin admin) {
+        adminRepository.save(admin);
     }
 
 

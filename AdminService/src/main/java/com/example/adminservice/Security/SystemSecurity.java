@@ -30,29 +30,10 @@ public class SystemSecurity {
         return key;
     }
 
-    public static String decode(String token) {
-        String[] parts = token.split("\\.");
-        String payload = parts[1];
-        byte[] decodedPayloadBytes = java.util.Base64.getDecoder().decode(payload);
-        String decodedPayload = new String(decodedPayloadBytes);
-
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode jsonNode = objectMapper.readTree(decodedPayload);
-            if (jsonNode.has("sub")) {
-                return jsonNode.get("sub").asText();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
-
     public static String getToken(){
         String token = Jwts.builder()
                 .setSubject("AdminService")
-                .signWith(SignatureAlgorithm.HS256, SystemSecurity.getKey())
+                .signWith(SignatureAlgorithm.HS256, KeyEncoder.getKey())
                 .compact();
         return token;
     }
