@@ -28,7 +28,7 @@ public class AccountController {
         return accountService.getAll();
     }
 
-    @RequestMapping(value = "/{id}/discount", method = RequestMethod.PUT)
+    @PutMapping("/{id}/discount")
     public ResponseEntity<String> discount(@RequestHeader("Authorization") String token, @PathVariable("id") String id, @RequestParam("amount") double amount) throws Exception {
         String request = SystemSecurity.decode(token);
         if(!SystemSecurity.isAllowed(request)){
@@ -37,12 +37,12 @@ public class AccountController {
         return ResponseEntity.ok(accountService.discount(id, amount).toString());
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+    @DeleteMapping("/delete")
     public ResponseEntity<String> deleteAccount(@RequestParam("id") String account){
         return ResponseEntity.ok(accountService.deleteAccount(account).toString());
     }
 
-    @RequestMapping(value = "/status",method = RequestMethod.PUT)
+    @PutMapping("/status")
     public ResponseEntity<String> activateOrDeactivateAccount(@RequestHeader("Authorization") String token ,@RequestParam("id") String account, @RequestParam("active") boolean action){
         String request = SystemSecurity.decode(token);
         if(!SystemSecurity.isAllowed(request)){

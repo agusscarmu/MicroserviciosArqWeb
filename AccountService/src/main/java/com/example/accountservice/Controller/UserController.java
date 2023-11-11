@@ -20,7 +20,7 @@ public class UserController {
 
 
 
-    @RequestMapping(method = RequestMethod.GET, produces = "application/json")
+    @GetMapping
     public List<UserDTO> users(){
         return userService.findAllUsers();
     }
@@ -30,7 +30,7 @@ public class UserController {
         return ResponseEntity.ok(userService.addUser(user));
     }
 
-    @RequestMapping(value="/localizeScooter", method = RequestMethod.GET)
+    @GetMapping("/localizeScooter")
     public List<Object> getScooters(@RequestParam("id") String id){
         return userService.localizeScooter(id);
     }
