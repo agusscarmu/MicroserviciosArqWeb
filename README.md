@@ -169,11 +169,12 @@ La primera entrega del sistema implica:
    **JSON de Solicitud:**
    ```json
    {
-     "firstName": "NOMBRE",
-     "lastName": "APELLIDO",
-     "phone": "121490",
-     "email": "example@example.com",
-     "accounts": []
+      "id": "String", //Opcional en caso de no darle una ID, MongoDB le otorga una ID aleatoria
+      "firstName": "String",
+      "lastName": "String",
+      "phone": "String",
+      "email": "example@example.com",
+      "accounts": []
    }
    ```
 
@@ -182,7 +183,8 @@ La primera entrega del sistema implica:
    **JSON de Solicitud:**
    ```json
    {
-     "balance": 120000.00
+      "id":"String", //Opcional en caso de no darle una ID, MongoDB le otorga una ID aleatoria
+      "balance": 120000.00
    }
    ```
 
@@ -191,6 +193,7 @@ La primera entrega del sistema implica:
    **JSON de Solicitud:**
    ```json
    {
+      "id": "String", //Opcional en caso de no darle una ID, MongoDB le otorga una ID aleatoria
       "mercadoPago":{"id":"ID de mercadoPago en MongoDB"},
       "users": [
           {
