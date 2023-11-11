@@ -1,4 +1,4 @@
-# Sistema de Microservicios - Alquiler de Monopatines Electrónicos 
+# Sistema de Microservicios - Alquiler de Monopatines Electrónicos 🛴
 
 ![Imagen Monopatin](./resources/img/monopatin-electrico-716690.jpg)
 
@@ -55,42 +55,51 @@ El sistema se basa en una arquitectura de microservicios y utiliza una base de d
 
 ## Micro Servicios
 
+🤚 Para ver la documentacion es necesario ejecutar el microservicio ya que utiliza el puerto necesario para cada microservicio.
+Link para documentacion swagger → .../documentation/swagger-ui
+Link para documentacion json → .../documentation/JSON
+
 - **Servicio de Monitoreo** (MonitoringService)
    - Autenticacion 
       - Registro de usuario de monitoreo (admin - encargado de mantenimiento)
       - Login
    - Administracion
    - Gestion de Mantenimiento
-   - Ver Documentacion Swagger -> [Documentacion](localhost:8084/documentation/swagger-ui)
-   - Ver Documentacion JSON -> [Documentacion](localhost:8084/documentation/JSON)
+   Documentacion: 
+   - Ver Documentacion Swagger → [Documentacion](http://localhost:8084/documentation/swagger-ui)
+   - Ver Documentacion JSON → [Documentacion](http://localhost:8084/documentation/JSON)
 
 - **Servicio de Cuentas** (AccountService)
    - Usuarios que utilizaran los monopatines
    - Mercado pago
    - Cuentas que podran utilizar los usuarios (dicha cuenta vincula varios usuarios con una cuenta de mercado pago)
-   - Ver Documentacion Swagger -> [Documentacion](localhost:8081/documentation/swagger-ui)
-   - Ver Documentacion JSON -> [Documentacion](localhost:8081/documentation/JSON)
+   Documentacion: 
+   - Ver Documentacion Swagger → [Documentacion](http://localhost:8081/documentation/swagger-ui)
+   - Ver Documentacion JSON → [Documentacion](http://localhost:8081/documentation/JSON)
 
 - **Servicio de Monopatines** (ScooterService)
    - Estaciones de monopatines
    - Monopatines disponibles 
    - Gestion de viajes
-   - Ver Documentacion Swagger -> [Documentacion](localhost:8082/documentation/swagger-ui)
-   - Ver Documentacion JSON -> [Documentacion](localhost:8082/documentation/JSON)
+   Documentacion: 
+   - Ver Documentacion Swagger → [Documentacion](http://localhost:8082/documentation/swagger-ui)
+   - Ver Documentacion JSON → [Documentacion](http://localhost:8082/documentation/JSON)
 
 - **Servicio de Datos** (DataService)
    - Gestion de los datos de viajes
       - Precio del viaje
       - Tiempo de pausa 
       - Cobro extra de pausa extendida
-   - Ver Documentacion Swagger -> [Documentacion](localhost:8086/documentation/swagger-ui)
-   - Ver Documentacion JSON -> [Documentacion](localhost:8086/documentation/JSON)
+   Documentacion: 
+   - Ver Documentacion Swagger → [Documentacion](http://localhost:8086/documentation/swagger-ui)
+   - Ver Documentacion JSON → [Documentacion](http://localhost:8086/documentation/JSON)
 
 - **Servicio de Mantenimiento** (MaintenanceService)
    - Registro de mantenimiento de los monopatines 
    - Generacion de reportes de estado de los monopatines
-   - Ver Documentacion Swagger -> [Documentacion](localhost:8083/documentation/swagger-ui)
-   - Ver Documentacion JSON -> [Documentacion](localhost:8083/documentation/JSON)
+   Documentacion: 
+   - Ver Documentacion Swagger → [Documentacion](http://localhost:8083/documentation/swagger-ui)
+   - Ver Documentacion JSON → [Documentacion](http://localhost:8083/documentation/JSON)
 
 ### Primera Entrega
 
