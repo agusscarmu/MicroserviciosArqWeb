@@ -45,7 +45,7 @@ public class TravelServiceImpl implements TravelService {
                 .block().getBody();
     }
     @Override
-    public String startTravel(long idScooter, long idAccount) {
+    public String startTravel(long idScooter, String idAccount) {
         DataTravelDTO dataTravelDTO = getLastUpdate();
         Travel travel = new Travel(idAccount, idScooter, dataTravelDTO.getPricePerMinute(), dataTravelDTO.getPauseLimit(), dataTravelDTO.getExtraPricePerMinute(), dataTravelDTO.getAppliedDate());
         for(TravelObserver observer : observers){

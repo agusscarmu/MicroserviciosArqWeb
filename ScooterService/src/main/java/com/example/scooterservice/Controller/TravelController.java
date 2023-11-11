@@ -41,7 +41,7 @@ public class TravelController {
     }
 
     @RequestMapping(value = "/start", method = RequestMethod.POST)
-    public ResponseEntity<String> startTravel(@RequestParam long idScooter, @RequestParam long idAccount){
+    public ResponseEntity<String> startTravel(@RequestParam long idScooter, @RequestParam String idAccount){
         return ResponseEntity.ok(travelService.startTravel(idScooter, idAccount));
     }
 

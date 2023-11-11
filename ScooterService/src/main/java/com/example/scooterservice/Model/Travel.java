@@ -19,7 +19,7 @@ public class Travel {
     private long id;
 
     @Column(name = "account_id")
-    private long accountId;
+    private String accountId;
     @Column(name = "scooter_id")
     private long scooterId;
 
@@ -67,31 +67,31 @@ public class Travel {
 
     private long pauseLimit;
 
-    public Travel(long accountId, long scooterId, Date createdAt, Date finishedAt, float pricePerMinute) {
+    public Travel(String accountId, long scooterId, Date createdAt, Date finishedAt, float pricePerMinute) {
         this.accountId = accountId;
         this.scooterId = scooterId;
         this.createdAt = createdAt;
         this.finishedAt = finishedAt;
         this.pricePerMinute = pricePerMinute;
     }
-    public Travel(long accountId, long scooterId, Date createdAt) {
+    public Travel(String accountId, long scooterId, Date createdAt) {
         this.accountId = accountId;
         this.scooterId = scooterId;
         this.createdAt = createdAt;
     }
-    public Travel(long accountId, long scooterId, float pricePerMinute) {
+    public Travel(String accountId, long scooterId, float pricePerMinute) {
         this.accountId = accountId;
         this.scooterId = scooterId;
         this.createdAt = new Date();
         this.pricePerMinute = pricePerMinute;
     }
-    public Travel(long accountId, long scooterId) {
+    public Travel(String accountId, long scooterId) {
         this.accountId = accountId;
         this.scooterId = scooterId;
         this.createdAt = new Date();
     }
 
-    public Travel(long accountId, long scooterId, double pricePerMinute, long pauseLimit, double extraPricePerMinute, Date lastPriceChange) {
+    public Travel(String accountId, long scooterId, double pricePerMinute, long pauseLimit, double extraPricePerMinute, Date lastPriceChange) {
         this.accountId = accountId;
         this.scooterId = scooterId;
         if(lastPriceChange==null){

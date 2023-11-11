@@ -53,8 +53,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 if ((request.getRequestURI().contains("/admin") && userAuthorities.contains(new SimpleGrantedAuthority("ADMIN")))
                         || (request.getRequestURI().contains("/maintenance") && userAuthorities.contains(new SimpleGrantedAuthority("MAINTENANCE")))) {
 
-                    // Lógica para el acceso a rutas de 'ADMIN' o 'MAINTENANCE'
-                    // ...
+
 
                     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                             userDetails,

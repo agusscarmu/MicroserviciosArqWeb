@@ -21,7 +21,7 @@ public class AccountController {
         return "Hola";
     }
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public ResponseEntity<String> addAccount(@RequestHeader("Authorization") String token, @RequestParam long id, @RequestParam float balance){
+    public ResponseEntity<String> addAccount(@RequestHeader("Authorization") String token, @RequestParam String id, @RequestParam float balance){
         String request = SystemSecurity.decode(token);
         if(!SystemSecurity.isAllowed(request)){
             throw new RuntimeException(request+ " Not allowed");
@@ -29,12 +29,20 @@ public class AccountController {
         return ResponseEntity.ok(accountService.addAccount(id, balance).toString());
     }
 
-    @RequestMapping(value = "/disable", method = RequestMethod.PUT)
-    public ResponseEntity<String> disableAccount(@RequestHeader("Authorization") String token, @RequestParam("id") long account){
+    @RequestMapping(value = "/status", method = RequestMethod.PUT)
+    public ResponseEntity<String> disableAccount(@RequestHeader("Authorization") String token, @RequestParam("id") String account, @RequestParam("active") boolean active){
         String request = SystemSecurity.decode(token);
         if(!SystemSecurity.isAllowed(request)){
             throw new RuntimeException(request+ " Not allowed");
         }
-        return ResponseEntity.ok(accountService.disableAccount(account).toString());
+        return ResponseEntity.ok(accountService.accountStatus(account,active).toString());
+    }
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> deleteAccount(@RequestHeader("Authorization") String token, @RequestParam("id") String account){
+        String request = SystemSecurity.decode(token);
+        if(!SystemSecurity.isAllowed(request)){
+            throw new RuntimeException(request+ " Not allowed");
+        }
+        return ResponseEntity.ok(accountService.deleteAccount(account).toString());
     }
 }

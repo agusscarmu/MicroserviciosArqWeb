@@ -14,7 +14,7 @@ public interface TravelService {
 
     List<TravelDTO> getAllTravels();
 
-    String startTravel(long idScooter, long idAccount);
+    String startTravel(long idScooter, String idAccount);
     String finishTravel(long id);
     void registerObserver(TravelObserver observer);
 

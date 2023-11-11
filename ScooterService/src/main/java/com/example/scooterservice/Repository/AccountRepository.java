@@ -6,10 +6,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
-public interface AccountRepository extends JpaRepository<Account, Long> {
+public interface AccountRepository extends JpaRepository<Account, String> {
+
 
     @Transactional
     @Modifying
     @Query("UPDATE Account a SET a.active = ?2 WHERE a.id = ?1")
-    void desactivateAccount(long id, boolean active);
+    void updateAccount(String idAccount, boolean b);
 }

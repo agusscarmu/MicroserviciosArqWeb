@@ -30,7 +30,7 @@ public class AdminServiceImpl implements AdminService {
     private final WebClient webClientData = WebClient.builder().baseUrl("http://localhost:8086").build();
 
     @Override
-    public String changeAccountStatus(long id, boolean active) {
+    public String changeAccountStatus(String id, boolean active) {
         webClientAccount
                 .put()
                 .uri("/account/status?id={id}&active={active}", id, active)

@@ -23,7 +23,7 @@ public class AdminController {
     AdminService adminService;
 
     @PutMapping("/changeAccountStatus")
-    public ResponseEntity<String> changeAccountStatus(@RequestParam("id") long id, @RequestParam("status") boolean status){
+    public ResponseEntity<String> changeAccountStatus(@RequestParam("id") String id, @RequestParam("status") boolean status){
         return ResponseEntity.ok(adminService.changeAccountStatus(id, status).toString());
     }
 

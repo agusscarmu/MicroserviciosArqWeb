@@ -1,38 +1,50 @@
 package com.example.accountservice.Model;
 
-import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.LinkedList;
 import java.util.List;
 
-@Entity
+@Document(collection = "users")
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class User {
 
     @Id
-    @Column(name = "user_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private String id;
 
-    @NotEmpty(message = "El nombre no puede estar vacio")
+    @NotEmpty(message = "El nombre no puede estar vacío")
     private String firstName;
-    @NotEmpty(message = "El apellido no puede estar vacio")
+
+    @NotEmpty(message = "El apellido no puede estar vacío")
     private String lastName;
-    @NotEmpty(message = "El telefono no puede estar vacio")
+
+    @NotEmpty(message = "El teléfono no puede estar vacío")
     private String phone;
-    @NotEmpty(message = "El email no puede estar vacio")
-    @Email(message = "El email debe ser valido")
+
+    @NotEmpty(message = "El email no puede estar vacío")
+    @Email(message = "El email debe ser válido")
     private String email;
-    @ManyToMany
-    @JoinTable(
-            name = "user_account",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "account_id"))
+
+    @DBRef
     private List<Account> accounts;
+
+    public User(String id, String firstName, String lastName, String phone, String email) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phone = phone;
+        this.email = email;
+        this.accounts = new LinkedList<>();
+    }
+    public void addAccount(Account account) {
+        this.accounts.add(account);
+    }
 }

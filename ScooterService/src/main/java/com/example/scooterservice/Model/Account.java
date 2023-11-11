@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Account {
     @Id
-    private long id;
+    private String id;
 
     @OneToMany(mappedBy = "associatedAccount")
     private List<Travel> scooters;
@@ -22,7 +22,7 @@ public class Account {
 
     private boolean active;
 
-    public Account(long id, float balance) {
+    public Account(String id, float balance) {
         this.id = id;
         this.balance = balance;
         this.active = true;

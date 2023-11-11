@@ -4,6 +4,7 @@ import com.example.accountservice.DTO.User.UserDTO;
 import com.example.accountservice.Model.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
 
@@ -11,5 +12,7 @@ public interface UserService {
 
     User addUser(User user);
 
-    List<Object> localizeScooter(long id);
+    List<Object> localizeScooter(String id);
+
+    User findUserById(String id);
 }

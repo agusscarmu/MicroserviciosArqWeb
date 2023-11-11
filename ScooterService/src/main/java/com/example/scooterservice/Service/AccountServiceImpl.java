@@ -15,18 +15,24 @@ public class AccountServiceImpl implements AccountService {
     private AccountRepository accountRepository;
 
     @Override
-    public ResponseEntity<String> addAccount(long id, float balance) {
+    public ResponseEntity<String> addAccount(String id, float balance) {
         Account account = new Account(id, balance);
         return ResponseEntity.ok(accountRepository.save(account).toString());
     }
 
-    @Transactional
     @Override
-    public String disableAccount(long idAccount) {
-        if (accountRepository.existsById(idAccount)){
-            accountRepository.desactivateAccount(idAccount, false);
-            return "Account desactivated";
+    public Object deleteAccount(String account) {
+        accountRepository.deleteById(account);
+        return "Account deleted";
+    }
+
+    @Override
+    public Object accountStatus(String account, boolean active) {
+        if (accountRepository.existsById(account)){
+            accountRepository.updateAccount(account, active);
+            return "Account updated";
         }
         return "Account not found";
     }
+
 }

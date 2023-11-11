@@ -9,7 +9,6 @@ import com.example.monitoringservice.Service.Interface.AuthService;
 import com.example.monitoringservice.dto.RegisterRequestDTO;
 import org.springframework.security.authentication.AuthenticationManager;
 import lombok.RequiredArgsConstructor;
-;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;

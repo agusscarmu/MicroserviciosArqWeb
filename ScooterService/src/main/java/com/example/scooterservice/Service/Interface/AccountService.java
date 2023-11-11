@@ -1,9 +1,11 @@
 package com.example.scooterservice.Service.Interface;
 
+import jakarta.transaction.Transactional;
 import org.springframework.http.ResponseEntity;
 
 public interface AccountService {
-    ResponseEntity<String> addAccount(long id, float balance);
+    ResponseEntity<String> addAccount(String id, float balance);
+    Object deleteAccount(String account);
 
-    String disableAccount(long account);
+    Object accountStatus(String account, boolean active);
 }

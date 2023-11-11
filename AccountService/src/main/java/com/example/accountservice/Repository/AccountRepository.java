@@ -1,17 +1,17 @@
 package com.example.accountservice.Repository;
 
 import com.example.accountservice.Model.Account;
-import jakarta.transaction.Transactional;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
+import com.example.accountservice.Model.MercadoPago;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository("accountRepository")
-public interface AccountRepository extends JpaRepository<Account, Long> {
+public interface AccountRepository extends MongoRepository<Account, String> {
 
-    @Modifying
-    @Transactional
-    @Query("UPDATE Account a SET a.active = ?2 WHERE a.id = ?1")
-    void disableAccount(long id, boolean action);
+    @Query(value = "{ 'id' : ?0 , 'active': ?1}", fields = "{ 'id' : 1, 'active' : 1 }")
+    void disableAccount(String id, boolean action);
+
+
 }

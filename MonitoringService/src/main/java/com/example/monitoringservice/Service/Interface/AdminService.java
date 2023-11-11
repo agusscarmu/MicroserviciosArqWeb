@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface AdminService {
 
-    String changeAccountStatus(long id, boolean status);
+    String changeAccountStatus(String id, boolean status);
 
     List<Serializable> reportByTravels(int travels);
 

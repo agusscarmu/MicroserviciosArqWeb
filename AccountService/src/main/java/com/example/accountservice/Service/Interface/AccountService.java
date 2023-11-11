@@ -3,17 +3,21 @@ package com.example.accountservice.Service.Interface;
 import com.example.accountservice.Model.Account;
 import org.springframework.http.ResponseEntity;
 
+import java.util.List;
+
 public interface AccountService {
 
     ResponseEntity<String> addAccount(Account account);
 
-    void deleteAccountById(Long id);
+    void deleteAccountById(String id);
 
-    String discount(long id, double amount);
+    String discount(String id, double amount) throws Exception;
 
-    String deleteAccount(long account);
+    String deleteAccount(String account);
 
-    String activateOrDeactivateAccount(long account, boolean action);
+    String activateOrDeactivateAccount(String account, boolean action);
 
-    String disableAccount(long id, boolean action);
+    String disableAccount(String id, boolean action);
+
+    List<Account> getAll();
 }
