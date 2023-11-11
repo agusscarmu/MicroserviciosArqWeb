@@ -8,11 +8,11 @@ La empresa desea implementar un servicio de alquiler de monopatines electrónico
 
 ### Bases de datos necesarias
 
-- AccountService
-- MonitoringService
-- ScooterService
-- DataService
-- MaintenanceService
+- AccountService (MongoDB)
+- MonitoringService (MySQL)
+- ScooterService (MySQL)
+- DataService (MySQL)
+- MaintenanceService (MySQL)
 
 ### Funcionalidades Principales
 
@@ -142,13 +142,13 @@ La primera entrega del sistema implica:
    **JSON de Solicitud:**
    ```json
    {
-       "mercadoPagoId": 1,
-       "users": [
-           {
-               "id": 1
-           }
-       ],
-       "createdAt": "2023-10-16T18:37:31.901+00:00"
+      "mercadoPago":{"id":"ID de mercadoPago en MongoDB"},
+      "users": [
+          {
+              "id": "ID de user en MongoDB"
+          }
+      ],
+      "createdAt": "2023-10-16T18:37:31.901+00:00"
    }
    ```
 
