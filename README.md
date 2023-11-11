@@ -65,7 +65,6 @@ ___
       - Login
    - Administracion
    - Gestion de Mantenimiento
-   Documentacion: 
    - [Ver Documentacion Swagger](http://localhost:8084/documentation/swagger-ui)
    - [Ver Documentacion JSON](http://localhost:8084/documentation/json)
 
@@ -73,7 +72,6 @@ ___
    - Usuarios que utilizaran los monopatines
    - Mercado pago
    - Cuentas que podran utilizar los usuarios (dicha cuenta vincula varios usuarios con una cuenta de mercado pago)
-   Documentacion: 
    - [Ver Documentacion Swagger](http://localhost:8081/documentation/swagger-ui)
    - [Ver Documentacion JSON](http://localhost:8081/documentation/json)
 
@@ -81,7 +79,6 @@ ___
    - Estaciones de monopatines
    - Monopatines disponibles 
    - Gestion de viajes
-   Documentacion: 
    - [Ver Documentacion Swagger](http://localhost:8082/documentation/swagger-ui)
    - [Ver Documentacion JSON](http://localhost:8082/documentation/json)
 
@@ -90,14 +87,12 @@ ___
       - Precio del viaje
       - Tiempo de pausa 
       - Cobro extra de pausa extendida
-   Documentacion: 
    - [Ver Documentacion Swagger](http://localhost:8086/documentation/swagger-ui)
    - [Ver Documentacion JSON](http://localhost:8086/documentation/json)
 
 - **Servicio de Mantenimiento** (MaintenanceService)
    - Registro de mantenimiento de los monopatines 
    - Generacion de reportes de estado de los monopatines
-   Documentacion: 
    - [Ver Documentacion Swagger](http://localhost:8083/documentation/swagger-ui)
    - [Ver Documentacion JSON](http://localhost:8083/documentation/json)
 
