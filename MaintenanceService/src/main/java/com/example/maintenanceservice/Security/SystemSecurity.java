@@ -2,6 +2,8 @@ package com.example.maintenanceservice.Security;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 
 import java.util.List;
 
@@ -26,6 +28,13 @@ public class SystemSecurity {
 
     public static String getKey() {
         return key;
+    }
+
+    public static String getToken(){
+        return Jwts.builder()
+                .setSubject("MaintenanceService")
+                .signWith(SignatureAlgorithm.HS256, SystemSecurity.getKey())
+                .compact();
     }
 
     public static String decode(String token) {

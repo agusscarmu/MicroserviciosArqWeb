@@ -10,4 +10,5 @@ public interface AdminRepository extends JpaRepository<User, Long> {
 
     @Query("SELECT a FROM User a WHERE a.username = ?1")
     Optional<Object> findByUsername(String username);
+    
 }

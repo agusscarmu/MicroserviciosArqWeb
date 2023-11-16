@@ -15,11 +15,11 @@ public class StationController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public ResponseEntity<String> addStation(@RequestBody Station station){
-        return ResponseEntity.ok(stationService.addStation(station).toString());
+        return stationService.addStation(station);
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteStation(@RequestParam("id") long station){
-        return ResponseEntity.ok(stationService.deleteStation(station).toString());
+        return stationService.deleteStation(station);
     }
 }

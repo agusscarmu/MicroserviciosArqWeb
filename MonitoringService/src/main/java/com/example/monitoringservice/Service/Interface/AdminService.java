@@ -1,6 +1,7 @@
 package com.example.monitoringservice.Service.Interface;
 
 import com.example.monitoringservice.Model.User;
+import org.springframework.http.ResponseEntity;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -9,7 +10,7 @@ import java.util.Optional;
 
 public interface AdminService {
 
-    String changeAccountStatus(String id, boolean status);
+    ResponseEntity<String> changeAccountStatus(String id, boolean status);
 
     List<Serializable> reportByTravels(int travels);
 
@@ -17,7 +18,7 @@ public interface AdminService {
 
     Serializable getStatus();
 
-    void updatePrice(Double price, Long pauseLimit, Double extraPricePerMinute, Date date, String url);
+    ResponseEntity<String> updatePrice(Double price, Long pauseLimit, Double extraPricePerMinute, Date date, String url);
 
     Optional<Object> findByUsername(String username);
 

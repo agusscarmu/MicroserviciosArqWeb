@@ -26,8 +26,8 @@ public class UserController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<User> addUser(@RequestBody User user){
-        return ResponseEntity.ok(userService.addUser(user));
+    public ResponseEntity<String> addUser(@RequestBody User user){
+        return userService.addUser(user);
     }
 
     @GetMapping("/localizeScooter")

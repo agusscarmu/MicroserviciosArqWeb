@@ -26,23 +26,23 @@ public class TravelController {
 
     @RequestMapping(value = "/{id}/pause", method = RequestMethod.PUT)
     public ResponseEntity<String> pauseTravel(@PathVariable long id){
-        return ResponseEntity.ok(travelService.pauseTravel(id));
+        return travelService.pauseTravel(id);
 
     }
 
     @RequestMapping(value = "/{id}/finish", method = RequestMethod.PUT)
     public ResponseEntity<String> finishTravel(@PathVariable long id){
-        return ResponseEntity.ok(travelService.finishTravel(id));
+        return travelService.finishTravel(id);
     }
 
     @RequestMapping(value = "/{id}/resume", method = RequestMethod.PUT)
     public ResponseEntity<String> resumeTravel(@PathVariable long id){
-        return ResponseEntity.ok(travelService.resumeTravel(id));
+        return travelService.resumeTravel(id);
     }
 
     @RequestMapping(value = "/start", method = RequestMethod.POST)
     public ResponseEntity<String> startTravel(@RequestParam long idScooter, @RequestParam String idAccount){
-        return ResponseEntity.ok(travelService.startTravel(idScooter, idAccount));
+        return travelService.startTravel(idScooter, idAccount);
     }
 
     @PostMapping("/add")

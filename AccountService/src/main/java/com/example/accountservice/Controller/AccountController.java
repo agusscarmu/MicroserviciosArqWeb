@@ -20,7 +20,7 @@ public class AccountController {
 
     @PostMapping("/add")
     public ResponseEntity<String> addAccount(@RequestBody Account account){
-        return ResponseEntity.ok(accountService.addAccount(account).toString());
+        return accountService.addAccount(account);
     }
 
     @GetMapping("/getAll")
@@ -34,12 +34,12 @@ public class AccountController {
         if(!SystemSecurity.isAllowed(request)){
             throw new RuntimeException(request+ " Not allowed");
         }
-        return ResponseEntity.ok(accountService.discount(id, amount).toString());
+        return accountService.discount(id, amount);
     }
 
     @DeleteMapping("/delete")
     public ResponseEntity<String> deleteAccount(@RequestParam("id") String account){
-        return ResponseEntity.ok(accountService.deleteAccount(account).toString());
+        return accountService.deleteAccount(account);
     }
 
     @PutMapping("/status")
@@ -48,7 +48,7 @@ public class AccountController {
         if(!SystemSecurity.isAllowed(request)){
             throw new RuntimeException(request+ " Not allowed");
         }
-        return ResponseEntity.ok(accountService.activateOrDeactivateAccount(account,action).toString());
+        return accountService.activateOrDeactivateAccount(account,action);
     }
 
 

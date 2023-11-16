@@ -2,6 +2,7 @@ package com.example.monitoringservice.Service;
 
 import com.example.monitoringservice.Security.SystemSecurity;
 import com.example.monitoringservice.Service.Interface.MaintenanceManagerService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -13,23 +14,33 @@ public class MaintenanceManagerServiceImpl implements MaintenanceManagerService 
 
     private final WebClient webClientMaintenance = WebClient.builder().baseUrl("http://localhost:8083").build();
     @Override
-    public String underMaintenance(long ScooterId) {
-        return webClientMaintenance.post()
-                .uri("/maintenance/underMaintenance?ScooterId={ScooterId}", ScooterId)
-                .header("Authorization", "Bearer " + SystemSecurity.getToken())
-                .retrieve()
-                .bodyToMono(String.class)
-                .block();
+    public ResponseEntity<String> underMaintenance(long ScooterId) {
+        try{
+            webClientMaintenance.post()
+                    .uri("/maintenance/underMaintenance?ScooterId={ScooterId}", ScooterId)
+                    .header("Authorization", "Bearer " + SystemSecurity.getToken())
+                    .retrieve()
+                    .bodyToMono(String.class)
+                    .block();
+            return ResponseEntity.ok("Maintenance started");
+        }catch (Exception e) {
+            return ResponseEntity.badRequest().body("Scooter not found");
+        }
     }
 
     @Override
-    public String finalizeMaintenance(long id) {
-        return webClientMaintenance.put()
-                .uri("/maintenance/finalizeMaintenance?id={id}", id)
-                .header("Authorization", "Bearer " + SystemSecurity.getToken())
-                .retrieve()
-                .bodyToMono(String.class)
-                .block();
+    public ResponseEntity<String> finalizeMaintenance(long id) {
+        try{
+            webClientMaintenance.put()
+                    .uri("/maintenance/finalizeMaintenance?id={id}", id)
+                    .header("Authorization", "Bearer " + SystemSecurity.getToken())
+                    .retrieve()
+                    .bodyToMono(String.class)
+                    .block();
+            return ResponseEntity.ok("Maintenance finalized");
+        }catch (Exception e) {
+            return ResponseEntity.badRequest().body("Maintenance not found");
+        }
     }
 
     @Override

@@ -45,35 +45,41 @@ public class TravelServiceImpl implements TravelService {
                 .block().getBody();
     }
     @Override
-    public String startTravel(long idScooter, String idAccount) {
+    public ResponseEntity<String> startTravel(long idScooter, String idAccount) {
         DataTravelDTO dataTravelDTO = getLastUpdate();
         Travel travel = new Travel(idAccount, idScooter, dataTravelDTO.getPricePerMinute(), dataTravelDTO.getPauseLimit(), dataTravelDTO.getExtraPricePerMinute(), dataTravelDTO.getAppliedDate());
         for(TravelObserver observer : observers){
             if(!observer.travelStarted(idScooter)){
-                return "Scooter not available";
+                return ResponseEntity.badRequest().body("Scooter is not available");
             }
         }
 
         travelRepository.save(travel);
 
 
-        return "Travel started";
+        return ResponseEntity.ok("Travel started");
     }
 
     @Override
-    public String pauseTravel(long id) {
+    public ResponseEntity<String> pauseTravel(long id) {
+        if(!travelRepository.existsById(id)){
+            return ResponseEntity.badRequest().body("Travel not found");
+        }
         Travel travel = travelRepository.findById(id).get();
         travel.startPause();
         travelRepository.save(travel);
-        return "Travel paused";
+        return ResponseEntity.ok("Travel paused");
     }
 
     @Override
-    public String resumeTravel(long id) {
+    public ResponseEntity<String> resumeTravel(long id) {
+        if(!travelRepository.existsById(id)){
+            return ResponseEntity.badRequest().body("Travel not found");
+        }
         Travel travel = travelRepository.findById(id).get();
         travel.endPause();
         travelRepository.save(travel);
-        return "Travel resumed";
+        return ResponseEntity.ok("Travel resumed");
     }
 
     @Override
@@ -83,11 +89,11 @@ public class TravelServiceImpl implements TravelService {
 
 
     @Override
-    public String finishTravel(long id) {
+    public ResponseEntity<String> finishTravel(long id) {
         Travel travel = travelRepository.findById(id).get();
         for(TravelObserver observer : observers){
             if(!observer.travelFinished(travel.getScooterId())){
-                return "Scooter is not at a station";
+                return ResponseEntity.badRequest().body("Scooter is not at a station");
             };
         }
 
@@ -97,28 +103,31 @@ public class TravelServiceImpl implements TravelService {
                 .signWith(SignatureAlgorithm.HS256, SystemSecurity.getKey())
                 .compact();
         travelRepository.save(travel);
-        webClientMaintenance.put()
-                .uri("/scooterReport/updateReport/{id}?usageTime={usageTime}&pauseTime={pauseTime}&km={km}",
-                        travel.getScooterId(), travel.getUsageTime(), travel.getPauseDuration(), travel.getKmTraveled())
-                .header("Authorization", "Bearer " + token)
-                .retrieve()
-                .bodyToMono(String.class)
-                .block();
-        webClientAccount.put()
-                .uri("/account/{id}/discount?amount={amount}",
-                        travel.getAccountId(), travel.getTotalPrice())
-                .header("Authorization", "Bearer " + token)
-                .retrieve()
-                .bodyToMono(String.class)
-                .block();
-        return "Travel finished";
-
+        try{
+            webClientMaintenance.put()
+                    .uri("/scooterReport/updateReport/{id}?usageTime={usageTime}&pauseTime={pauseTime}&km={km}",
+                            travel.getScooterId(), travel.getUsageTime(), travel.getPauseDuration(), travel.getKmTraveled())
+                    .header("Authorization", "Bearer " + token)
+                    .retrieve()
+                    .bodyToMono(String.class)
+                    .block();
+            webClientAccount.put()
+                    .uri("/account/{id}/discount?amount={amount}",
+                            travel.getAccountId(), travel.getTotalPrice())
+                    .header("Authorization", "Bearer " + token)
+                    .retrieve()
+                    .bodyToMono(String.class)
+                    .block();
+            return ResponseEntity.ok("Travel finished");
+        }catch (Exception e) {
+            return ResponseEntity.badRequest().body("Something went wrong");
+        }
     }
 
     @Override
-    public String startTravelWTime(Travel travel) {
+    public ResponseEntity<String> startTravelWTime(Travel travel) {
         travelRepository.save(travel);
-        return "Travel started";
+        return ResponseEntity.ok("Travel started");
     }
 
     @Override

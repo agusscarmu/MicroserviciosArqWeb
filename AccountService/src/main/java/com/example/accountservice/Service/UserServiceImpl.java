@@ -9,6 +9,7 @@ import com.example.accountservice.Service.Interface.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
@@ -31,8 +32,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User addUser(User user) {
-        return userRepository.save(user);
+    public ResponseEntity<String> addUser(User user) {
+        userRepository.save(user);
+        return ResponseEntity.ok("User added");
     }
 
     @Override

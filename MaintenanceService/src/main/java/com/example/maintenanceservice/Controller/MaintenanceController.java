@@ -20,7 +20,7 @@ public class MaintenanceController {
         if(!SystemSecurity.isAllowed(request)){
             throw new RuntimeException(request+ " Not allowed");
         }
-        return ResponseEntity.ok(maintanceService.underMaintenance(ScooterId).toString());
+        return maintanceService.underMaintenance(ScooterId);
     }
 
     @RequestMapping(value = "/finalizeMaintenance", method = RequestMethod.PUT)
@@ -29,7 +29,7 @@ public class MaintenanceController {
         if(!SystemSecurity.isAllowed(request)){
             throw new RuntimeException(request+ " Not allowed");
         }
-        return ResponseEntity.ok(maintanceService.finalizeMaintenance(maintenance).toString());
+        return maintanceService.finalizeMaintenance(maintenance);
     }
 
 }

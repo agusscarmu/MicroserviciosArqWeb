@@ -40,7 +40,7 @@ public class ScooterController {
             @RequestParam("scooter")Long scooterId,
             @RequestParam("station")Long stationId
     ){
-        return ResponseEntity.ok(scooterService.updateStation(scooterId, stationId));
+        return scooterService.updateStation(scooterId, stationId);
     }
 
 
@@ -54,12 +54,12 @@ public class ScooterController {
         if(!SystemSecurity.isAllowed(request)){
             throw new RuntimeException(request+ " Not allowed");
         }
-        return ResponseEntity.ok(scooterService.markScooterMaintenance(scooterId, maintenance));
+        return scooterService.markScooterMaintenance(scooterId, maintenance);
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteScooter(@RequestParam("id") Long scooterId){
-        return ResponseEntity.ok(scooterService.deleteScooter(scooterId));
+        return scooterService.deleteScooter(scooterId);
     }
 
     @RequestMapping(value = "/status", method = RequestMethod.GET)
@@ -81,6 +81,6 @@ public class ScooterController {
             @RequestParam("scooter")Long scooterId,
             @RequestParam("location")String location
     ){
-        return ResponseEntity.ok(scooterService.updateLocation(scooterId, location));
+        return scooterService.updateLocation(scooterId, location);
     }
 }

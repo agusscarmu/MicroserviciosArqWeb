@@ -54,7 +54,7 @@ public class AccountServiceImpl implements AccountService {
         account.activateAccount();
         accountRepository.save(account);
         updateAccountScooter(account);
-        return ResponseEntity.ok(account.toString());
+        return ResponseEntity.ok("Account added");
     }
 
     private void updateAccountScooter(Account account) {
@@ -76,7 +76,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public String discount(String id, double amount) throws Exception {
+    public ResponseEntity<String> discount(String id, double amount) throws Exception {
         Account account = accountRepository.findById(id).orElse(null);
         if (account != null) {
             MercadoPago mp = account.getMercadoPago();
@@ -85,36 +85,40 @@ public class AccountServiceImpl implements AccountService {
                 mpService.addMp(mp);
                 accountRepository.save(account);
                 updateAccountScooter(account);
-                return "Discounted";
+                return ResponseEntity.ok("Discount applied");
             } else {
-                throw new Exception("Insufficient funds");
+                return ResponseEntity.badRequest().body("Not enough balance");
             }
         } else {
-            throw new Exception("Account not found");
+            return ResponseEntity.badRequest().body("Account not found");
         }
     }
 
     @Override
-    public String deleteAccount(String accountId) {
+    public ResponseEntity<String> deleteAccount(String accountId) {
         if (!accountRepository.existsById(accountId)) {
-            return "Account not found";
+            return ResponseEntity.badRequest().body("Account not found");
         }
-        String token = Jwts.builder()
-                .setSubject("AccountService")
-                .signWith(SignatureAlgorithm.HS256, SystemSecurity.getKey())
-                .compact();
-        accountRepository.deleteById(accountId);
-        webClientScooter.delete()
-                .uri("/account/delete?id={id}", accountId)
-                .header("Authorization", "Bearer " + token)
-                .retrieve()
-                .bodyToMono(String.class)
-                .block();
-        return "Account deleted";
+        try{
+            String token = Jwts.builder()
+                    .setSubject("AccountService")
+                    .signWith(SignatureAlgorithm.HS256, SystemSecurity.getKey())
+                    .compact();
+            accountRepository.deleteById(accountId);
+            webClientScooter.delete()
+                    .uri("/account/delete?id={id}", accountId)
+                    .header("Authorization", "Bearer " + token)
+                    .retrieve()
+                    .bodyToMono(String.class)
+                    .block();
+            return ResponseEntity.ok("Account deleted");
+        }catch (Exception e) {
+            return ResponseEntity.badRequest().body("Something went wrong");
+        }
     }
 
     @Override
-    public String activateOrDeactivateAccount(String id, boolean active) {
+    public ResponseEntity<String> activateOrDeactivateAccount(String id, boolean active) {
         Account account = accountRepository.findById(id).orElse(null);
         if (account != null) {
             if (active) {
@@ -134,23 +138,19 @@ public class AccountServiceImpl implements AccountService {
                     .retrieve()
                     .bodyToMono(String.class)
                     .block();
-            return "Account updated";
+            return ResponseEntity.ok("Account updated");
         } else {
-            return "Account not found";
+            return ResponseEntity.badRequest().body("Account not found");
         }
-    }
-
-    @Override
-    public String disableAccount(String id, boolean action) {
-        if (!accountRepository.existsById(id)) {
-            return "Account not found";
-        }
-        accountRepository.disableAccount(id, action);
-        return "Account disabled";
     }
 
     @Override
     public List<Account> getAll() {
         return accountRepository.findAll();
+    }
+
+    @Override
+    public Account getById(String id) {
+        return accountRepository.findById(id).orElse(null);
     }
 }

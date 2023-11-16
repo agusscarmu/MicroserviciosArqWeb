@@ -11,13 +11,13 @@ public interface AccountService {
 
     void deleteAccountById(String id);
 
-    String discount(String id, double amount) throws Exception;
+    ResponseEntity<String> discount(String id, double amount) throws Exception;
 
-    String deleteAccount(String account);
+    ResponseEntity<String> deleteAccount(String account);
 
-    String activateOrDeactivateAccount(String account, boolean action);
-
-    String disableAccount(String id, boolean action);
+    ResponseEntity<String> activateOrDeactivateAccount(String account, boolean action);
 
     List<Account> getAll();
+
+    Account getById(String id);
 }

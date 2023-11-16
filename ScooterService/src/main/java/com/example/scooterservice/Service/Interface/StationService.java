@@ -6,5 +6,5 @@ import org.springframework.http.ResponseEntity;
 public interface StationService {
     ResponseEntity<String> addStation(Station station);
 
-    String deleteStation(long station);
+    ResponseEntity<String> deleteStation(long station);
 }

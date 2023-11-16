@@ -5,8 +5,10 @@ import com.example.monitoringservice.Repository.AdminRepository;
 import com.example.monitoringservice.Security.SystemSecurity;
 import com.example.monitoringservice.Service.Interface.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientException;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -30,15 +32,19 @@ public class AdminServiceImpl implements AdminService {
     private final WebClient webClientData = WebClient.builder().baseUrl("http://localhost:8086").build();
 
     @Override
-    public String changeAccountStatus(String id, boolean active) {
-        webClientAccount
-                .put()
-                .uri("/account/status?id={id}&active={active}", id, active)
-                .header("Authorization", "Bearer " + SystemSecurity.getToken())
-                .retrieve()
-                .bodyToMono(String.class)
-                .block();
-        return "Account status changed successfully";
+    public ResponseEntity<String> changeAccountStatus(String id, boolean active) {
+        try {
+            webClientAccount
+                    .put()
+                    .uri("/account/status?id={id}&active={active}", id, active)
+                    .header("Authorization", "Bearer " + SystemSecurity.getToken())
+                    .retrieve()
+                    .bodyToMono(String.class)
+                    .block();
+            return ResponseEntity.ok("Account status changed");
+        }catch(WebClientException e){
+            return ResponseEntity.badRequest().body("Account not found");
+        }
     }
 
     @Override
@@ -80,13 +86,18 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void updatePrice(Double price, Long pauseLimit, Double extraPricePerMinute, Date date, String url) {
-        webClientData.post()
-                .uri("/dataTravel/update"+url, price, pauseLimit, extraPricePerMinute, date)
-                .header("Authorization", "Bearer " + SystemSecurity.getToken())
-                .retrieve()
-                .bodyToMono(String.class)
-                .block();
+    public ResponseEntity<String> updatePrice(Double price, Long pauseLimit, Double extraPricePerMinute, Date date, String url) {
+        try{
+            webClientData.post()
+                    .uri("/dataTravel/update"+url, price, pauseLimit, extraPricePerMinute, date)
+                    .header("Authorization", "Bearer " + SystemSecurity.getToken())
+                    .retrieve()
+                    .bodyToMono(String.class)
+                    .block();
+            return ResponseEntity.ok("Price updated");
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body("Error updating price");
+        }
     }
 
     @Override

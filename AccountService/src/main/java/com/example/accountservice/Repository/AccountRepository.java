@@ -7,11 +7,10 @@ import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Repository("accountRepository")
 public interface AccountRepository extends MongoRepository<Account, String> {
-
-    @Query(value = "{ 'id' : ?0 , 'active': ?1}", fields = "{ 'id' : 1, 'active' : 1 }")
-    void disableAccount(String id, boolean action);
 
 
 }

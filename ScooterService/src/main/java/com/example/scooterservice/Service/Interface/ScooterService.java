@@ -14,17 +14,17 @@ public interface ScooterService extends TravelObserver {
 
     List<ScooterDTO> findAllScooters();
 
-    String markScooterMaintenance(Long scooterId, boolean maintenance);
+    ResponseEntity<String> markScooterMaintenance(Long scooterId, boolean maintenance);
 
     ResponseEntity<String> addScooter(Scooter scooter);
 
-    String updateStation(Long scooterId, Long stationId);
+    ResponseEntity<String> updateStation(Long scooterId, Long stationId);
 
-    String deleteScooter(Long scooterId);
+    ResponseEntity<String> deleteScooter(Long scooterId);
 
     Serializable getStatus();
 
     List<ScooterAvailableDTO> getScooters(String location);
 
-    String updateLocation(Long scooterId, String location);
+    ResponseEntity<String> updateLocation(Long scooterId, String location);
 }

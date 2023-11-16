@@ -19,12 +19,12 @@ public class StationServiceImpl implements StationService {
     }
 
     @Override
-    public String deleteStation(long station) {
+    public ResponseEntity<String> deleteStation(long station) {
         if (stationRepository.existsById(station)){
             stationRepository.deleteById(station);
-            return "Station deleted";
+            return ResponseEntity.ok("Station deleted");
         }
-        return "Station not found";
+        return ResponseEntity.badRequest().body("Station not found");
     }
 
 }

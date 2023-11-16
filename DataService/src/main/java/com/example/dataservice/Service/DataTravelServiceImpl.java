@@ -4,6 +4,7 @@ import com.example.dataservice.Model.DataTravel;
 import com.example.dataservice.Repository.DataTravelRepository;
 import com.example.dataservice.Service.Interface.DataTravelService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
@@ -16,7 +17,7 @@ public class DataTravelServiceImpl implements DataTravelService {
     private DataTravelRepository dataTravelRepository;
 
     @Override
-    public void addDataTravel(Double price, Long pauseLimit, Double extraPricePerMinute, Date date) {
+    public ResponseEntity<String> addDataTravel(Double price, Long pauseLimit, Double extraPricePerMinute, Date date) {
         if(dataTravelRepository.count()==0){
             dataTravelRepository.save(new DataTravel(price, pauseLimit, extraPricePerMinute, date));
         }else{
@@ -27,6 +28,7 @@ public class DataTravelServiceImpl implements DataTravelService {
             Date newLastPriceChange = date != null ? date : dataTravel.getAppliedDate();
             dataTravelRepository.save(new DataTravel(newPricePerMinute, newPauseLimit, newExtraPricePerMinute, newLastPriceChange));
         }
+        return ResponseEntity.ok("DataTravel added");
     }
 
     @Override

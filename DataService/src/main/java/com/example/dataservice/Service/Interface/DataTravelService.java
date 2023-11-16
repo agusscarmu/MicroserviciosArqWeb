@@ -1,10 +1,12 @@
 package com.example.dataservice.Service.Interface;
 
+import org.springframework.http.ResponseEntity;
+
 import java.io.Serializable;
 import java.util.Date;
 
 public interface DataTravelService {
-    void addDataTravel(Double price, Long pauseLimit, Double extraPricePerMinute, Date date);
+    ResponseEntity<String> addDataTravel(Double price, Long pauseLimit, Double extraPricePerMinute, Date date);
 
     Serializable getLastUpdate();
 }

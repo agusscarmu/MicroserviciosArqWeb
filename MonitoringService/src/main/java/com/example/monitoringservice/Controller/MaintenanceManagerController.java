@@ -22,12 +22,12 @@ public class MaintenanceManagerController {
 
     @RequestMapping(value = "/underMaintenance", method = RequestMethod.POST)
     public ResponseEntity<String> underMaintenance(@RequestParam long ScooterId){
-        return ResponseEntity.ok(maintenanceManagerService.underMaintenance(ScooterId).toString());
+        return maintenanceManagerService.underMaintenance(ScooterId);
     }
 
     @RequestMapping(value = "/finalizeMaintenance", method = RequestMethod.PUT)
     public ResponseEntity<String> finalizeMaintenance(@RequestParam("id") long maintenance){
-        return ResponseEntity.ok(maintenanceManagerService.finalizeMaintenance(maintenance).toString());
+        return maintenanceManagerService.finalizeMaintenance(maintenance);
     }
 
     @RequestMapping(value = "/getReport" , method = RequestMethod.GET)

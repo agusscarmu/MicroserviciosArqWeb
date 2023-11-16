@@ -28,12 +28,12 @@ public class ScooterServiceImpl implements ScooterService {
 
     @Transactional
     @Override
-    public String markScooterMaintenance(Long scooterId, boolean maintenance) {
+    public ResponseEntity<String> markScooterMaintenance(Long scooterId, boolean maintenance) {
         if(scooterRepository.existsById(scooterId)){
             scooterRepository.markScooterMaintenance(scooterId, maintenance);
-            return "Scooter maintenance status updated";
+            return ResponseEntity.ok("Scooter maintenance updated");
         }else{
-            return "Scooter not found";
+            return ResponseEntity.badRequest().body("Scooter not found");
         }
     }
 
@@ -43,26 +43,26 @@ public class ScooterServiceImpl implements ScooterService {
     }
 
     @Override
-    public String updateStation(Long scooterId, Long stationId) {
+    public ResponseEntity<String> updateStation(Long scooterId, Long stationId) {
         if(scooterRepository.existsById(scooterId)){
             Scooter scooter = scooterRepository.findById(scooterId).get();
             Station station = entityManager.getReference(Station.class, stationId);
             scooter.setLocation(station.getLocation());
             scooter.setStationId(stationId);
             scooterRepository.save(scooter);
-            return "Scooter station updated";
+            return ResponseEntity.ok("Scooter station updated");
         }else{
-            return "Scooter not found";
+            return ResponseEntity.badRequest().body("Scooter not found");
         }
     }
 
     @Override
-    public String deleteScooter(Long scooterId) {
+    public ResponseEntity<String> deleteScooter(Long scooterId) {
         if(scooterRepository.existsById(scooterId)){
             scooterRepository.deleteById(scooterId);
-            return "Scooter deleted";
+            return ResponseEntity.ok("Scooter deleted");
         }else{
-            return "Scooter not found";
+            return ResponseEntity.badRequest().body("Scooter not found");
         }
     }
 
@@ -78,12 +78,12 @@ public class ScooterServiceImpl implements ScooterService {
 
     @Transactional
     @Override
-    public String updateLocation(Long scooterId, String location) {
+    public ResponseEntity<String> updateLocation(Long scooterId, String location) {
         if(scooterRepository.existsById(scooterId)){
             scooterRepository.updateLocation(scooterId, location);
-            return "Scooter location updated";
+            return ResponseEntity.ok("Scooter location updated");
         }else{
-            return "Scooter not found";
+            return ResponseEntity.badRequest().body("Scooter not found");
         }
     }
 

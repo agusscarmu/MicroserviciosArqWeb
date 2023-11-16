@@ -24,7 +24,7 @@ public class AdminController {
 
     @PutMapping("/changeAccountStatus")
     public ResponseEntity<String> changeAccountStatus(@RequestParam("id") String id, @RequestParam("status") boolean status){
-        return ResponseEntity.ok(adminService.changeAccountStatus(id, status).toString());
+        return adminService.changeAccountStatus(id, status);
     }
 
     @RequestMapping(value="/scooter/reportBy", method = RequestMethod.GET)
@@ -43,12 +43,11 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/travel/updatePrice", method = RequestMethod.POST)
-    public String addDataTravel(HttpServletRequest request,
+    public ResponseEntity<String> addDataTravel(HttpServletRequest request,
             @RequestParam(required = false) Double price, @RequestParam(required = false) Long pauseLimit, @RequestParam(required = false) Double extraPricePerMinute, @RequestParam(required = false) Date date){
 
         String queryString = "?"+request.getQueryString();
 
-        adminService.updatePrice(price, pauseLimit, extraPricePerMinute, date, queryString);
-        return "Price updated";
+        return adminService.updatePrice(price, pauseLimit, extraPricePerMinute, date, queryString);
     }
 }
