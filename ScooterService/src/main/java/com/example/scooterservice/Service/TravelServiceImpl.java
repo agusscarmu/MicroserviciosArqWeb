@@ -91,6 +91,9 @@ public class TravelServiceImpl implements TravelService {
     @Override
     public ResponseEntity<String> finishTravel(long id) {
         Travel travel = travelRepository.findById(id).get();
+        if(travel.getFinishedAt()!=null){
+            return ResponseEntity.badRequest().body("Travel already finished");
+        }
         for(TravelObserver observer : observers){
             if(!observer.travelFinished(travel.getScooterId())){
                 return ResponseEntity.badRequest().body("Scooter is not at a station");
