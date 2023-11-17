@@ -96,6 +96,17 @@ ___
    - [Ver Documentacion Swagger](http://localhost:8083/documentation/swagger-ui)
    - [Ver Documentacion JSON](http://localhost:8083/documentation/json)
 
+## 💿⚠️ Carga de datos predeterminada 
+### Siga los siguientes pasos para efectuar una carga automatica adecuada:
+
+1. Ejecutar el microservicio ScooterService 
+   - para que puedan cargarse adecuadamente las tablas que el siguiente servicio utilizara
+   - Al finalizar su inicializacion deberia aparecer por consola el aviso de carga: ![carga](/resources/img/scooterService.png)
+2. Ejecutar el microservicio AccountService
+   - Al finalizar su inicializacion deberia aparecer por consola el aviso de carga: ![carga](/resources/img/userService.png)
+3. Ejecutar el microservicio MonitoringService
+   - Al finalizar su inicializacion deberia aparecer por consola el aviso de carga: ![carga](/resources/img/monitoringService.png)
+
 ### Primera Entrega
 
 La primera entrega del sistema implica:
