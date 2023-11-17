@@ -11,7 +11,7 @@ import java.util.List;
 @Repository("userRepository")
 public interface UserRepository extends MongoRepository<User, String> {
 
-    @Query(value = "{}", fields = "{ 'id' : 1, 'name' : 1, 'lastName' : 1, 'email' : 1, 'phone' : 1, 'address' : 1, 'createdAt' : 1, 'active' : 1 }")
+    @Query(value = "{}", fields = "{ 'id' : 1, 'firstName' : 1, 'lastName' : 1, 'email' : 1, 'phone' : 1, 'address' : 1, 'createdAt' : 1, 'active' : 1 }")
     List<UserDTO> findAllUsers();
 
 

@@ -33,6 +33,9 @@ public class DataTravelServiceImpl implements DataTravelService {
 
     @Override
     public Serializable getLastUpdate() {
+        if(dataTravelRepository.count()==0){
+            return new DataTravel();
+        }
         return dataTravelRepository.findLastDataTravel();
     }
 }

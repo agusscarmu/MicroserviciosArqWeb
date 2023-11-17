@@ -1,0 +1,4 @@
+username,password,admin,maintenance,id
+admin,admin,true,true,1
+user1,1234,true,false,2
+user2,1234,false,true,3

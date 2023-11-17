@@ -20,7 +20,4 @@ public interface AdminService {
 
     ResponseEntity<String> updatePrice(Double price, Long pauseLimit, Double extraPricePerMinute, Date date, String url);
 
-    Optional<Object> findByUsername(String username);
-
-    void addAdmin(User user);
 }

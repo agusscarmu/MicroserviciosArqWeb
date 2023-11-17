@@ -18,9 +18,6 @@ import java.util.Optional;
 @Service
 public class AdminServiceImpl implements AdminService {
 
-    @Autowired
-    AdminRepository adminRepository;
-
 
 
     private final WebClient webClientAccount = WebClient.builder().baseUrl("http://localhost:8081").build();
@@ -100,15 +97,7 @@ public class AdminServiceImpl implements AdminService {
         }
     }
 
-    @Override
-    public Optional<Object> findByUsername(String username) {
-        return adminRepository.findByUsername(username);
-    }
 
-    @Override
-    public void addAdmin(User user) {
-        adminRepository.save(user);
-    }
 
 
 }

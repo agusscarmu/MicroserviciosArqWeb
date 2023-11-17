@@ -42,7 +42,7 @@ public class AdminController {
         return adminService.getStatus();
     }
 
-    @RequestMapping(value = "/travel/updatePrice", method = RequestMethod.POST)
+    @RequestMapping(value = "/travel/update", method = RequestMethod.POST)
     public ResponseEntity<String> addDataTravel(HttpServletRequest request,
             @RequestParam(required = false) Double price, @RequestParam(required = false) Long pauseLimit, @RequestParam(required = false) Double extraPricePerMinute, @RequestParam(required = false) Date date){
 

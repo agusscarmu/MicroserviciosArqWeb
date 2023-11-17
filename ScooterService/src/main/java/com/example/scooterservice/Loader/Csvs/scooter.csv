@@ -1,0 +1,11 @@
+underMaintenance,inUse,location,stationId,id
+false,false,Plaza centro,1,1
+false,false,Estación principal,2,2
+true,false,Área industrial,3,3
+false,false,Centro comercial,4,4
+true,false,Parque central,5,5
+false,false,Zona residencial,6,6
+false,false,Estación de servicio,7,7
+false,false,Aeropuerto,8,8
+true,false,Terminal de autobuses,9,9
+false,false,Estación de tren,10,10
